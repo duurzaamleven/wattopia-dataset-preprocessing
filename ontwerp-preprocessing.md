@@ -261,7 +261,7 @@ Het pakket is klein (78 MB uitgepakt, waarvan bijna alles de twee detailwerkboek
 
 ## 6. Pakketstructuur
 
-Naar het model van de preprocessing-repo voor DACS-HW:
+Een module per verantwoordelijkheid, zodat elke stap apart te toetsen is:
 
 | module | doet |
 |---|---|
