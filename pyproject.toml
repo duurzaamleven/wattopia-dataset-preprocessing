@@ -1,0 +1,28 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "wattopia-preprocessing"
+version = "0.1.0"
+description = "Preprocessing van de Wattopia-dataset Woningprestaties naar getypeerde, herleidbare Parquet-tabellen (raw -> standardized -> derived)."
+readme = "README.md"
+requires-python = ">=3.11"
+license = { file = "LICENSE.md" }
+dependencies = [
+    "pandas>=2.2,<4",
+    "numpy>=1.26,<3",
+    "pyarrow>=17,<26",
+    "openpyxl>=3.1,<4",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8,<10",
+]
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/wattopia_preprocessing"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

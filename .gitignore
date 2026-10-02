@@ -1,0 +1,20 @@
+# De ruwe dataset en alles wat eruit volgt blijft buiten versiebeheer.
+# De dataleveranciers vragen de dataset niet door te sturen (aanvragen via KITE), en een
+# leverancier kan zijn toestemming intrekken. Zie GEBRUIKSVOORWAARDEN.md.
+data/
+*.zip
+*.xlsx
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+*.egg-info/
+.pytest_cache/
+
+# Lokale e-mailconcepten en notities
+*mail*.*
+*.notitie.*
+
+# Claude Code
+.claude/
