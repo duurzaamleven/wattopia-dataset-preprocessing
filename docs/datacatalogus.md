@@ -222,7 +222,7 @@ Pad: `data/processed/detail_ruw/flowHeatSpaceHeating.parquet`. Rijen: 198.956.
 | `temp_aanvoer__degC` | number | `flow_temp` | Aanvoertemperatuur van de warmtemeter. |
 | `temp_retour__degC` | number | `return_temp` | Retourtemperatuur van de warmtemeter. |
 | `q_cum__GJ` | number | `total_energyGJ` | Meterstand geleverde warmte, GJ. |
-| `volume_uit_cum__onbekend` | number | `volume_out` | Meterstand volume; eenheid onbekend (vermoedelijk m3 circulatiewater). |
+| `volume_uit_cum__m3` | number | `volume_out` | Meterstand van het circulatiewater van de ruimteverwarming, m3 (resolutie 1 liter). Eenheid afgeleid: warmte, temperatuurverschil en volume sluiten op rho*c*V*dT (ontwerp §9.5). |
 
 ### `detail_ruw/waterFlow`
 
@@ -236,7 +236,7 @@ Pad: `data/processed/detail_ruw/waterFlow.parquet`. Rijen: 207.996.
 | `timestamp_bron__s` | integer | `Timestamp` | Oorspronkelijke Unix-seconden (UTC) uit de bron. |
 | `temp_omgeving__degC` | number | `ambient_temp` | Omgevingstemperatuur (ambient_temp). |
 | `temp_stroom_min__degC` | number | `min_flow_temp` | Minimale stroomtemperatuur (min_flow_temp). |
-| `volume_uit_cum__onbekend` | number | `volume_out` | Meterstand volume; eenheid onbekend. |
+| `volume_uit_cum__m3` | number | `volume_out` | Meterstand van het warme tapwater, m3 (resolutie 1 liter); vermoedelijk gemeten aan de koudwaterinlaat van het vat. Eenheid afgeleid uit het dagritme en de warmtebalans in de zomer, niet in de bron gedocumenteerd; of de meter al het warme water meet, is niet vast te stellen (ontwerp §9.5). |
 
 ### `detail_ruw/ventilation`
 
@@ -268,7 +268,7 @@ Pad: `data/processed/detail_ruw/co2sensor.parquet`. Rijen: 208.225.
 | `co2__ppm` | number | `co2` | CO2-concentratie (eenheid niet toegelicht in de bron; ppm aangenomen). |
 | `rv__pct` | number | `humidity` | Relatieve vochtigheid. |
 | `temp_ruimte__degC` | number | `temp` | Ruimtetemperatuur van de CO2-sensor. |
-| `voc__onbekend` | number | `voc` | VOC-waarde; eenheid onbekend. |
+| `voc__onbekend` | number | `voc` | VOC-waarde van de sensor; eenheid onbekend en niet in de bron gedocumenteerd. Waarschijnlijkst een dimensieloze luchtkwaliteitsindex (ondergrens 1,0, resolutie 0,1); niet als concentratie gebruiken (ontwerp §9.5). |
 
 ### `detail_ruw/thermostat`
 
@@ -405,13 +405,13 @@ Pad: `data/processed/detail_5min.parquet`. Korrel: woning x 5 minuten. Rijen: 21
 | `flowheatspaceheating_temp_aanvoer_steekproef_buiten_bereik__bool` | boolean |  | De ruwe waarde van flowheatspaceheating_temp_aanvoer_steekproef__degC lag buiten -40 tot 120 graden Celsius; de waarde is dan leeg, de ruwe laag houdt hem. |
 | `flowheatspaceheating_temp_retour_steekproef__degC` | number |  | Steekproef (laatste meting binnen het interval, geen gemiddelde) van flowHeatSpaceHeating.return_temp. Retourtemperatuur van de warmtemeter. |
 | `flowheatspaceheating_temp_retour_steekproef_buiten_bereik__bool` | boolean |  | De ruwe waarde van flowheatspaceheating_temp_retour_steekproef__degC lag buiten -40 tot 120 graden Celsius; de waarde is dan leeg, de ruwe laag houdt hem. |
-| `flowheatspaceheating_volume_uit_cum_steekproef__onbekend` | number |  | Steekproef (laatste meting binnen het interval, geen gemiddelde) van flowHeatSpaceHeating.volume_out. Meterstand volume; eenheid onbekend (vermoedelijk m3 circulatiewater). |
+| `flowheatspaceheating_volume_uit_cum_steekproef__m3` | number |  | Steekproef (laatste meting binnen het interval, geen gemiddelde) van flowHeatSpaceHeating.volume_out. Meterstand van het circulatiewater van de ruimteverwarming, m3 (resolutie 1 liter). Eenheid afgeleid: warmte, temperatuurverschil en volume sluiten op rho*c*V*dT (ontwerp §9.5). |
 | `waterflow_tijdstip_steekproef` | datetime |  | Tijdstip van de laatste meting van tabblad waterFlow binnen het interval; leeg als er geen was. |
 | `waterflow_temp_omgeving_steekproef__degC` | number |  | Steekproef (laatste meting binnen het interval, geen gemiddelde) van waterFlow.ambient_temp. Omgevingstemperatuur (ambient_temp). |
 | `waterflow_temp_omgeving_steekproef_buiten_bereik__bool` | boolean |  | De ruwe waarde van waterflow_temp_omgeving_steekproef__degC lag buiten -40 tot 120 graden Celsius; de waarde is dan leeg, de ruwe laag houdt hem. |
 | `waterflow_temp_stroom_min_steekproef__degC` | number |  | Steekproef (laatste meting binnen het interval, geen gemiddelde) van waterFlow.min_flow_temp. Minimale stroomtemperatuur (min_flow_temp). |
 | `waterflow_temp_stroom_min_steekproef_buiten_bereik__bool` | boolean |  | De ruwe waarde van waterflow_temp_stroom_min_steekproef__degC lag buiten -40 tot 120 graden Celsius; de waarde is dan leeg, de ruwe laag houdt hem. |
-| `waterflow_volume_uit_cum_steekproef__onbekend` | number |  | Steekproef (laatste meting binnen het interval, geen gemiddelde) van waterFlow.volume_out. Meterstand volume; eenheid onbekend. |
+| `waterflow_volume_uit_cum_steekproef__m3` | number |  | Steekproef (laatste meting binnen het interval, geen gemiddelde) van waterFlow.volume_out. Meterstand van het warme tapwater, m3 (resolutie 1 liter); vermoedelijk gemeten aan de koudwaterinlaat van het vat. Eenheid afgeleid uit het dagritme en de warmtebalans in de zomer, niet in de bron gedocumenteerd; of de meter al het warme water meet, is niet vast te stellen (ontwerp §9.5). |
 | `ventilation_tijdstip_steekproef` | datetime |  | Tijdstip van de laatste meting van tabblad ventilation binnen het interval; leeg als er geen was. |
 | `ventilation_foutcode_steekproef__str` | string |  | Steekproef (laatste meting binnen het interval, geen gemiddelde) van ventilation.error_code. Foutcode van de ventilatie-unit. |
 | `ventilation_debiet_afvoer_steekproef__onbekend` | number |  | Steekproef (laatste meting binnen het interval, geen gemiddelde) van ventilation.exhaust_flow. Afvoerdebiet; eenheid onbekend. |
@@ -426,7 +426,7 @@ Pad: `data/processed/detail_5min.parquet`. Korrel: woning x 5 minuten. Rijen: 21
 | `co2sensor_rv_steekproef__pct` | number |  | Steekproef (laatste meting binnen het interval, geen gemiddelde) van co2sensor.humidity. Relatieve vochtigheid. |
 | `co2sensor_temp_ruimte_steekproef__degC` | number |  | Steekproef (laatste meting binnen het interval, geen gemiddelde) van co2sensor.temp. Ruimtetemperatuur van de CO2-sensor. |
 | `co2sensor_temp_ruimte_steekproef_buiten_bereik__bool` | boolean |  | De ruwe waarde van co2sensor_temp_ruimte_steekproef__degC lag buiten -40 tot 120 graden Celsius of was 0 of lager (kamertemperatuur); de waarde is dan leeg, de ruwe laag houdt hem. |
-| `co2sensor_voc_steekproef__onbekend` | number |  | Steekproef (laatste meting binnen het interval, geen gemiddelde) van co2sensor.voc. VOC-waarde; eenheid onbekend. |
+| `co2sensor_voc_steekproef__onbekend` | number |  | Steekproef (laatste meting binnen het interval, geen gemiddelde) van co2sensor.voc. VOC-waarde van de sensor; eenheid onbekend en niet in de bron gedocumenteerd. Waarschijnlijkst een dimensieloze luchtkwaliteitsindex (ondergrens 1,0, resolutie 0,1); niet als concentratie gebruiken (ontwerp §9.5). |
 | `thermostat_tijdstip_steekproef` | datetime |  | Tijdstip van de laatste meting van tabblad thermostat binnen het interval; leeg als er geen was. |
 | `thermostat_temp_thermostaat_steekproef__degC` | number |  | Steekproef (laatste meting binnen het interval, geen gemiddelde) van thermostat.temp. Temperatuur zoals de thermostaat die meet. |
 | `thermostat_temp_thermostaat_steekproef_buiten_bereik__bool` | boolean |  | De ruwe waarde van thermostat_temp_thermostaat_steekproef__degC lag buiten -40 tot 120 graden Celsius of was 0 of lager (kamertemperatuur); de waarde is dan leeg, de ruwe laag houdt hem. |
@@ -506,13 +506,13 @@ Pad: `data/processed/detail_kwartier.parquet`. Korrel: woning x kwartier. Rijen:
 | `flowheatspaceheating_temp_aanvoer_steekproef_buiten_bereik__bool` | boolean |  | De ruwe waarde van flowheatspaceheating_temp_aanvoer_steekproef__degC lag buiten -40 tot 120 graden Celsius; de waarde is dan leeg, de ruwe laag houdt hem. |
 | `flowheatspaceheating_temp_retour_steekproef__degC` | number |  | Steekproef (laatste meting binnen het interval, geen gemiddelde) van flowHeatSpaceHeating.return_temp. Retourtemperatuur van de warmtemeter. Van het laatste interval van het kwartier. |
 | `flowheatspaceheating_temp_retour_steekproef_buiten_bereik__bool` | boolean |  | De ruwe waarde van flowheatspaceheating_temp_retour_steekproef__degC lag buiten -40 tot 120 graden Celsius; de waarde is dan leeg, de ruwe laag houdt hem. |
-| `flowheatspaceheating_volume_uit_cum_steekproef__onbekend` | number |  | Steekproef (laatste meting binnen het interval, geen gemiddelde) van flowHeatSpaceHeating.volume_out. Meterstand volume; eenheid onbekend (vermoedelijk m3 circulatiewater). Van het laatste interval van het kwartier. |
+| `flowheatspaceheating_volume_uit_cum_steekproef__m3` | number |  | Steekproef (laatste meting binnen het interval, geen gemiddelde) van flowHeatSpaceHeating.volume_out. Meterstand van het circulatiewater van de ruimteverwarming, m3 (resolutie 1 liter). Eenheid afgeleid: warmte, temperatuurverschil en volume sluiten op rho*c*V*dT (ontwerp §9.5). Van het laatste interval van het kwartier. |
 | `waterflow_tijdstip_steekproef` | datetime |  | Tijdstip van de laatste meting van tabblad waterFlow binnen het interval; leeg als er geen was. Van het laatste interval van het kwartier. |
 | `waterflow_temp_omgeving_steekproef__degC` | number |  | Steekproef (laatste meting binnen het interval, geen gemiddelde) van waterFlow.ambient_temp. Omgevingstemperatuur (ambient_temp). Van het laatste interval van het kwartier. |
 | `waterflow_temp_omgeving_steekproef_buiten_bereik__bool` | boolean |  | De ruwe waarde van waterflow_temp_omgeving_steekproef__degC lag buiten -40 tot 120 graden Celsius; de waarde is dan leeg, de ruwe laag houdt hem. |
 | `waterflow_temp_stroom_min_steekproef__degC` | number |  | Steekproef (laatste meting binnen het interval, geen gemiddelde) van waterFlow.min_flow_temp. Minimale stroomtemperatuur (min_flow_temp). Van het laatste interval van het kwartier. |
 | `waterflow_temp_stroom_min_steekproef_buiten_bereik__bool` | boolean |  | De ruwe waarde van waterflow_temp_stroom_min_steekproef__degC lag buiten -40 tot 120 graden Celsius; de waarde is dan leeg, de ruwe laag houdt hem. |
-| `waterflow_volume_uit_cum_steekproef__onbekend` | number |  | Steekproef (laatste meting binnen het interval, geen gemiddelde) van waterFlow.volume_out. Meterstand volume; eenheid onbekend. Van het laatste interval van het kwartier. |
+| `waterflow_volume_uit_cum_steekproef__m3` | number |  | Steekproef (laatste meting binnen het interval, geen gemiddelde) van waterFlow.volume_out. Meterstand van het warme tapwater, m3 (resolutie 1 liter); vermoedelijk gemeten aan de koudwaterinlaat van het vat. Eenheid afgeleid uit het dagritme en de warmtebalans in de zomer, niet in de bron gedocumenteerd; of de meter al het warme water meet, is niet vast te stellen (ontwerp §9.5). Van het laatste interval van het kwartier. |
 | `ventilation_tijdstip_steekproef` | datetime |  | Tijdstip van de laatste meting van tabblad ventilation binnen het interval; leeg als er geen was. Van het laatste interval van het kwartier. |
 | `ventilation_foutcode_steekproef__str` | string |  | Steekproef (laatste meting binnen het interval, geen gemiddelde) van ventilation.error_code. Foutcode van de ventilatie-unit. Van het laatste interval van het kwartier. |
 | `ventilation_debiet_afvoer_steekproef__onbekend` | number |  | Steekproef (laatste meting binnen het interval, geen gemiddelde) van ventilation.exhaust_flow. Afvoerdebiet; eenheid onbekend. Van het laatste interval van het kwartier. |
@@ -527,7 +527,7 @@ Pad: `data/processed/detail_kwartier.parquet`. Korrel: woning x kwartier. Rijen:
 | `co2sensor_rv_steekproef__pct` | number |  | Steekproef (laatste meting binnen het interval, geen gemiddelde) van co2sensor.humidity. Relatieve vochtigheid. Van het laatste interval van het kwartier. |
 | `co2sensor_temp_ruimte_steekproef__degC` | number |  | Steekproef (laatste meting binnen het interval, geen gemiddelde) van co2sensor.temp. Ruimtetemperatuur van de CO2-sensor. Van het laatste interval van het kwartier. |
 | `co2sensor_temp_ruimte_steekproef_buiten_bereik__bool` | boolean |  | De ruwe waarde van co2sensor_temp_ruimte_steekproef__degC lag buiten -40 tot 120 graden Celsius of was 0 of lager (kamertemperatuur); de waarde is dan leeg, de ruwe laag houdt hem. |
-| `co2sensor_voc_steekproef__onbekend` | number |  | Steekproef (laatste meting binnen het interval, geen gemiddelde) van co2sensor.voc. VOC-waarde; eenheid onbekend. Van het laatste interval van het kwartier. |
+| `co2sensor_voc_steekproef__onbekend` | number |  | Steekproef (laatste meting binnen het interval, geen gemiddelde) van co2sensor.voc. VOC-waarde van de sensor; eenheid onbekend en niet in de bron gedocumenteerd. Waarschijnlijkst een dimensieloze luchtkwaliteitsindex (ondergrens 1,0, resolutie 0,1); niet als concentratie gebruiken (ontwerp §9.5). Van het laatste interval van het kwartier. |
 | `thermostat_tijdstip_steekproef` | datetime |  | Tijdstip van de laatste meting van tabblad thermostat binnen het interval; leeg als er geen was. Van het laatste interval van het kwartier. |
 | `thermostat_temp_thermostaat_steekproef__degC` | number |  | Steekproef (laatste meting binnen het interval, geen gemiddelde) van thermostat.temp. Temperatuur zoals de thermostaat die meet. Van het laatste interval van het kwartier. |
 | `thermostat_temp_thermostaat_steekproef_buiten_bereik__bool` | boolean |  | De ruwe waarde van thermostat_temp_thermostaat_steekproef__degC lag buiten -40 tot 120 graden Celsius of was 0 of lager (kamertemperatuur); de waarde is dan leeg, de ruwe laag houdt hem. |

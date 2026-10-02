@@ -207,7 +207,7 @@ Eén bestand per tabblad (behalve `summary` en de lege tabbladen), beide woninge
 `power` naar `p__W`, `total_energy_in` naar `e_in_cum__kWh`, `total_energy_out` naar
 `e_uit_cum__kWh`, `energy_in_low`/`_norm` naar `e_in_laag_cum__kWh`/`e_in_normaal_cum__kWh` (idem
 uit), `total_energyGJ` naar `q_cum__GJ`, temperaturen naar `temp_<naam>__degC`, `volume_out` naar
-`volume_uit_cum__onbekend` (zie §1.2), statussen naar `<naam>__cat` of `__bool` als ze alleen 0 en 1
+`volume_uit_cum__m3` (zie §9.5), statussen naar `<naam>__cat` of `__bool` als ze alleen 0 en 1
 kennen, `error_code` naar `foutcode__str`. Lege tabbladen worden niet geschreven maar wel gemeld in
 `docs/data-quality.md`.
 
@@ -374,3 +374,42 @@ ontwerp hierboven ongewijzigd gelaten en staat hier wat de data liet zien en wat
 - **Vlagregels van `woningen_jaar` (§4.2).** De drie vergelijkingen (`som_*`, `balans_*`) zijn leeg (`<NA>`)
   als ze niet toetsbaar zijn, en niet onwaar. De waarden zelf blijven in `woningen_jaar` staan; de
   `NaN`-bij-vlag-regel uit §2 geldt voor `detail_5min`.
+
+### 9.5 De eenheden van de twee volumes en van VOC
+
+Het ontwerp (§1.2) liet de eenheid van `volume_out` in `waterFlow` en `flowHeatSpaceHeating` en van
+`voc` open. Na de eerste run is dat nagezocht in de data zelf, in de documentatie van de dataset en in
+het openbare datamodel van een verwante dataset die dezelfde meetpunten kent.
+
+**`flowHeatSpaceHeating.volume_out`: m³ circulatiewater.** Per interval van vijf minuten met warmte
+(ongeveer 20.000 per woning) is het volume uitgerekend uit de warmteteller en het temperatuurverschil,
+V = Q / (ρ·c·ΔT) met ρ = 998 kg/m³ en c = 4186 J/(kg·K), en gedeeld door de toename van de
+volumeteller. Verhouding: mediaan 1,02 en 1,00 (interkwartielafstand ongeveer 0,78 tot 1,2). Het
+debiet is dan ongeveer 1 m³/h bij ongeveer 2,4 kW en een temperatuurverschil van ongeveer 1,9 K. De
+kleinste stap is 0,001: een liter.
+
+**`waterFlow.volume_out`: m³ warm tapwater, waarschijnlijk.** Vier aanwijzingen:
+
+1. het verloop is een tappatroon: in 1 tot 2 % van de intervallen een toename, met pieken rond het
+   ontbijt en in de avond, en stappen van een paar liter (p99 15 tot 18 liter per vijf minuten);
+2. `min_flow_temp` ligt rond 17 °C (koud water) en `ambient_temp` rond 24 °C (de ruimte bij het vat);
+3. de documentatie van de verwante dataset noemt bij de meetdata "tapwaterdebiet en temperatuur", en
+   het openbare datamodel daarvan kent een bronvariabele `CumulativeWaterFlow` in m³ die naar liter
+   wordt omgerekend;
+4. de warmtebalans in de zomer (juni tot en met augustus, zonder ruimteverwarming) sluit alleen bij
+   m³: het tapwater (8 en 32 liter per dag) plus het stilstandsverlies van een vat van deze grootte
+   (orde 1 tot 1,4 kWh thermisch per dag) vraagt bij het gemeten elektriciteitsgebruik van de
+   warmtepomp (1,0 en 1,5 kWh per dag) een rendement van ongeveer 1,2 tot 1,5. Een tien keer zo grote
+   eenheid zou een rendement van ongeveer 8 vragen; liter geeft milliliters per dag.
+
+Het verbruik is laag, en dat is een **kanttekening die blijft**: of de meter al het warme water
+meet, is niet vast te stellen.
+
+**`co2sensor.voc`: onbekend.** Waarden van 1 tot 30 met een resolutie van 0,1, een harde ondergrens
+op 1,0 (bij één woning 39 % van de metingen), een matige samenhang met CO₂ (Spearman 0,4), en bij één
+woning een langzame daling over het jaar. Dat past het best bij een dimensieloze luchtkwaliteitsindex;
+een concentratie in ppb of mg/m³ is onwaarschijnlijk, ppm niet uit te sluiten. Geen enkele bron
+documenteert het; de naam blijft `voc__onbekend`.
+
+Gevolg: de twee volumes heten nu `volume_uit_cum__m3`, en `UITVOER_CONTRACT_VERSIE` is verhoogd.
+

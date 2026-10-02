@@ -2,7 +2,7 @@
   "name": "wattopia-woningprestaties-processed",
   "title": "Woningprestaties: voorbewerkte monitoringdata (getypeerde Parquet-tabellen)",
   "description": "Voorbewerkte monitoringdata Woningprestaties (Wattopia, Out of Harm's Way en RVO, 2022): jaartotalen van 898 woningen en vijfminutendata van twee woningen. Deze repo is niet de data-eigenaar; zie GEBRUIKSVOORWAARDEN.md voor de voorwaarden, de meldplicht en de herkomst, en docs/datacatalogus.md voor de beschrijving van elke tabel. De uitvoer in data/processed/ staat niet in git. Gegenereerd door wattopia_preprocessing.datapackage.",
-  "version": "2026-10-02-eerste-pijplijn",
+  "version": "2026-10-03-volumes-in-m3",
   "licenses": [
     {
       "name": "andere",
@@ -842,9 +842,9 @@
             "description": "Meterstand geleverde warmte, GJ."
           },
           {
-            "name": "volume_uit_cum__onbekend",
+            "name": "volume_uit_cum__m3",
             "type": "number",
-            "description": "Meterstand volume; eenheid onbekend (vermoedelijk m3 circulatiewater)."
+            "description": "Meterstand van het circulatiewater van de ruimteverwarming, m3 (resolutie 1 liter). Eenheid afgeleid: warmte, temperatuurverschil en volume sluiten op rho*c*V*dT (ontwerp §9.5)."
           }
         ],
         "primaryKey": [
@@ -888,9 +888,9 @@
             "description": "Minimale stroomtemperatuur (min_flow_temp)."
           },
           {
-            "name": "volume_uit_cum__onbekend",
+            "name": "volume_uit_cum__m3",
             "type": "number",
-            "description": "Meterstand volume; eenheid onbekend."
+            "description": "Meterstand van het warme tapwater, m3 (resolutie 1 liter); vermoedelijk gemeten aan de koudwaterinlaat van het vat. Eenheid afgeleid uit het dagritme en de warmtebalans in de zomer, niet in de bron gedocumenteerd; of de meter al het warme water meet, is niet vast te stellen (ontwerp §9.5)."
           }
         ],
         "primaryKey": [
@@ -1002,7 +1002,7 @@
           {
             "name": "voc__onbekend",
             "type": "number",
-            "description": "VOC-waarde; eenheid onbekend."
+            "description": "VOC-waarde van de sensor; eenheid onbekend en niet in de bron gedocumenteerd. Waarschijnlijkst een dimensieloze luchtkwaliteitsindex (ondergrens 1,0, resolutie 0,1); niet als concentratie gebruiken (ontwerp §9.5)."
           }
         ],
         "primaryKey": [
@@ -1541,9 +1541,9 @@
             "description": "De ruwe waarde van flowheatspaceheating_temp_retour_steekproef__degC lag buiten -40 tot 120 graden Celsius; de waarde is dan leeg, de ruwe laag houdt hem."
           },
           {
-            "name": "flowheatspaceheating_volume_uit_cum_steekproef__onbekend",
+            "name": "flowheatspaceheating_volume_uit_cum_steekproef__m3",
             "type": "number",
-            "description": "Steekproef (laatste meting binnen het interval, geen gemiddelde) van flowHeatSpaceHeating.volume_out. Meterstand volume; eenheid onbekend (vermoedelijk m3 circulatiewater)."
+            "description": "Steekproef (laatste meting binnen het interval, geen gemiddelde) van flowHeatSpaceHeating.volume_out. Meterstand van het circulatiewater van de ruimteverwarming, m3 (resolutie 1 liter). Eenheid afgeleid: warmte, temperatuurverschil en volume sluiten op rho*c*V*dT (ontwerp §9.5)."
           },
           {
             "name": "waterflow_tijdstip_steekproef",
@@ -1571,9 +1571,9 @@
             "description": "De ruwe waarde van waterflow_temp_stroom_min_steekproef__degC lag buiten -40 tot 120 graden Celsius; de waarde is dan leeg, de ruwe laag houdt hem."
           },
           {
-            "name": "waterflow_volume_uit_cum_steekproef__onbekend",
+            "name": "waterflow_volume_uit_cum_steekproef__m3",
             "type": "number",
-            "description": "Steekproef (laatste meting binnen het interval, geen gemiddelde) van waterFlow.volume_out. Meterstand volume; eenheid onbekend."
+            "description": "Steekproef (laatste meting binnen het interval, geen gemiddelde) van waterFlow.volume_out. Meterstand van het warme tapwater, m3 (resolutie 1 liter); vermoedelijk gemeten aan de koudwaterinlaat van het vat. Eenheid afgeleid uit het dagritme en de warmtebalans in de zomer, niet in de bron gedocumenteerd; of de meter al het warme water meet, is niet vast te stellen (ontwerp §9.5)."
           },
           {
             "name": "ventilation_tijdstip_steekproef",
@@ -1648,7 +1648,7 @@
           {
             "name": "co2sensor_voc_steekproef__onbekend",
             "type": "number",
-            "description": "Steekproef (laatste meting binnen het interval, geen gemiddelde) van co2sensor.voc. VOC-waarde; eenheid onbekend."
+            "description": "Steekproef (laatste meting binnen het interval, geen gemiddelde) van co2sensor.voc. VOC-waarde van de sensor; eenheid onbekend en niet in de bron gedocumenteerd. Waarschijnlijkst een dimensieloze luchtkwaliteitsindex (ondergrens 1,0, resolutie 0,1); niet als concentratie gebruiken (ontwerp §9.5)."
           },
           {
             "name": "thermostat_tijdstip_steekproef",
@@ -2022,9 +2022,9 @@
             "description": "De ruwe waarde van flowheatspaceheating_temp_retour_steekproef__degC lag buiten -40 tot 120 graden Celsius; de waarde is dan leeg, de ruwe laag houdt hem."
           },
           {
-            "name": "flowheatspaceheating_volume_uit_cum_steekproef__onbekend",
+            "name": "flowheatspaceheating_volume_uit_cum_steekproef__m3",
             "type": "number",
-            "description": "Steekproef (laatste meting binnen het interval, geen gemiddelde) van flowHeatSpaceHeating.volume_out. Meterstand volume; eenheid onbekend (vermoedelijk m3 circulatiewater). Van het laatste interval van het kwartier."
+            "description": "Steekproef (laatste meting binnen het interval, geen gemiddelde) van flowHeatSpaceHeating.volume_out. Meterstand van het circulatiewater van de ruimteverwarming, m3 (resolutie 1 liter). Eenheid afgeleid: warmte, temperatuurverschil en volume sluiten op rho*c*V*dT (ontwerp §9.5). Van het laatste interval van het kwartier."
           },
           {
             "name": "waterflow_tijdstip_steekproef",
@@ -2052,9 +2052,9 @@
             "description": "De ruwe waarde van waterflow_temp_stroom_min_steekproef__degC lag buiten -40 tot 120 graden Celsius; de waarde is dan leeg, de ruwe laag houdt hem."
           },
           {
-            "name": "waterflow_volume_uit_cum_steekproef__onbekend",
+            "name": "waterflow_volume_uit_cum_steekproef__m3",
             "type": "number",
-            "description": "Steekproef (laatste meting binnen het interval, geen gemiddelde) van waterFlow.volume_out. Meterstand volume; eenheid onbekend. Van het laatste interval van het kwartier."
+            "description": "Steekproef (laatste meting binnen het interval, geen gemiddelde) van waterFlow.volume_out. Meterstand van het warme tapwater, m3 (resolutie 1 liter); vermoedelijk gemeten aan de koudwaterinlaat van het vat. Eenheid afgeleid uit het dagritme en de warmtebalans in de zomer, niet in de bron gedocumenteerd; of de meter al het warme water meet, is niet vast te stellen (ontwerp §9.5). Van het laatste interval van het kwartier."
           },
           {
             "name": "ventilation_tijdstip_steekproef",
@@ -2129,7 +2129,7 @@
           {
             "name": "co2sensor_voc_steekproef__onbekend",
             "type": "number",
-            "description": "Steekproef (laatste meting binnen het interval, geen gemiddelde) van co2sensor.voc. VOC-waarde; eenheid onbekend. Van het laatste interval van het kwartier."
+            "description": "Steekproef (laatste meting binnen het interval, geen gemiddelde) van co2sensor.voc. VOC-waarde van de sensor; eenheid onbekend en niet in de bron gedocumenteerd. Waarschijnlijkst een dimensieloze luchtkwaliteitsindex (ondergrens 1,0, resolutie 0,1); niet als concentratie gebruiken (ontwerp §9.5). Van het laatste interval van het kwartier."
           },
           {
             "name": "thermostat_tijdstip_steekproef",

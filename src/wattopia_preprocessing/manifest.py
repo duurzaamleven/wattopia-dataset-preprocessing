@@ -32,7 +32,7 @@ import pyarrow.parquet as pq
 log = logging.getLogger(__name__)
 
 #: Versie van het uitvoercontract.
-UITVOER_CONTRACT_VERSIE = "2026-10-02-eerste-pijplijn"
+UITVOER_CONTRACT_VERSIE = "2026-10-03-volumes-in-m3"
 
 #: Versie van de tussenstap (het inlezen van de werkboeken).
 INTERIM_VERSIE = "1"

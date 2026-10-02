@@ -183,12 +183,12 @@ DETAIL_MEETPUNTEN: dict[str, list[Kolom]] = {
         Kolom("temp_aanvoer__degC", "float", "Aanvoertemperatuur van de warmtemeter.", "flow_temp"),
         Kolom("temp_retour__degC", "float", "Retourtemperatuur van de warmtemeter.", "return_temp"),
         Kolom("q_cum__GJ", "float", "Meterstand geleverde warmte, GJ.", "total_energyGJ"),
-        Kolom("volume_uit_cum__onbekend", "float", "Meterstand volume; eenheid onbekend (vermoedelijk m3 circulatiewater).", "volume_out"),
+        Kolom("volume_uit_cum__m3", "float", "Meterstand van het circulatiewater van de ruimteverwarming, m3 (resolutie 1 liter). Eenheid afgeleid: warmte, temperatuurverschil en volume sluiten op rho*c*V*dT (ontwerp §9.5).", "volume_out"),
     ],
     "waterFlow": [
         Kolom("temp_omgeving__degC", "float", "Omgevingstemperatuur (ambient_temp).", "ambient_temp"),
         Kolom("temp_stroom_min__degC", "float", "Minimale stroomtemperatuur (min_flow_temp).", "min_flow_temp"),
-        Kolom("volume_uit_cum__onbekend", "float", "Meterstand volume; eenheid onbekend.", "volume_out"),
+        Kolom("volume_uit_cum__m3", "float", "Meterstand van het warme tapwater, m3 (resolutie 1 liter); vermoedelijk gemeten aan de koudwaterinlaat van het vat. Eenheid afgeleid uit het dagritme en de warmtebalans in de zomer, niet in de bron gedocumenteerd; of de meter al het warme water meet, is niet vast te stellen (ontwerp §9.5).", "volume_out"),
     ],
     "ventilation": [
         Kolom("foutcode__str", "str", "Foutcode van de ventilatie-unit.", "error_code"),
@@ -202,7 +202,7 @@ DETAIL_MEETPUNTEN: dict[str, list[Kolom]] = {
         Kolom("co2__ppm", "float", "CO2-concentratie (eenheid niet toegelicht in de bron; ppm aangenomen).", "co2"),
         Kolom("rv__pct", "float", "Relatieve vochtigheid.", "humidity"),
         Kolom("temp_ruimte__degC", "float", "Ruimtetemperatuur van de CO2-sensor.", "temp"),
-        Kolom("voc__onbekend", "float", "VOC-waarde; eenheid onbekend.", "voc"),
+        Kolom("voc__onbekend", "float", "VOC-waarde van de sensor; eenheid onbekend en niet in de bron gedocumenteerd. Waarschijnlijkst een dimensieloze luchtkwaliteitsindex (ondergrens 1,0, resolutie 0,1); niet als concentratie gebruiken (ontwerp §9.5).", "voc"),
     ],
     "thermostat": [
         Kolom("temp_thermostaat__degC", "float", "Temperatuur zoals de thermostaat die meet.", "temp"),
