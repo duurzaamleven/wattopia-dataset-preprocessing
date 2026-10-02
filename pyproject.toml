@@ -19,6 +19,8 @@ dependencies = [
 [project.optional-dependencies]
 dev = [
     "pytest>=8,<10",
+    # optioneel: valideert datapackage.json tegen de Frictionless-specificatie (de toets wordt anders overgeslagen)
+    "frictionless>=5,<6",
 ]
 
 [tool.hatch.build.targets.wheel]
@@ -26,3 +28,8 @@ packages = ["src/wattopia_preprocessing"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
+# De toets op de echte data staat standaard uit; draai hem met: pytest -m echte_data
+addopts = "-m 'not echte_data'"
+markers = [
+    "echte_data: toets op de echte data in data/raw/ (traag; standaard overgeslagen)",
+]
