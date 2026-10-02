@@ -1,0 +1,2255 @@
+{
+  "name": "wattopia-woningprestaties-processed",
+  "title": "Woningprestaties: voorbewerkte monitoringdata (getypeerde Parquet-tabellen)",
+  "description": "Voorbewerkte monitoringdata Woningprestaties (Wattopia, Out of Harm's Way en RVO, 2022): jaartotalen van 898 woningen en vijfminutendata van twee woningen. Deze repo is niet de data-eigenaar; zie GEBRUIKSVOORWAARDEN.md voor de voorwaarden, de meldplicht en de herkomst, en docs/datacatalogus.md voor de beschrijving van elke tabel. De uitvoer in data/processed/ staat niet in git. Gegenereerd door wattopia_preprocessing.datapackage.",
+  "version": "2026-10-03-volumes-in-m3",
+  "licenses": [
+    {
+      "name": "andere",
+      "title": "Geen open licentie in de zin van een licentietekst. De KITE-pagina noemt de data openbaar, onder voorwaarde van vermelding van het doel en gebruik aan Wattopia; het codeboek zegt dat de gegevens niet worden gemanipuleerd, niet worden verkocht en niet zonder toestemming voor andere doelen worden gebruikt; de instructies vragen de dataset niet zelf door te sturen. Zie GEBRUIKSVOORWAARDEN.md.",
+      "path": "GEBRUIKSVOORWAARDEN.md"
+    }
+  ],
+  "sources": [
+    {
+      "title": "Monitoringdata Energieprestaties Wattopia, KITE (Kennisdelen RVO)",
+      "path": "https://kennisdelen.rvo.nl/groups/view/1434df6b-d9c4-4d87-8c73-36834399abeb/kite"
+    },
+    {
+      "title": "RVO_Woningprestaties_Datapakketje_2022.zip (codeboek van 22 juli 2022)",
+      "path": "https://wattopia.nl/download/RVO_Woningprestaties_Datapakketje_2022.zip",
+      "sha256": "42ac03254c4d3cbb349655a32e3258c535c0db5dba3704353f567e2157d4e86a",
+      "bytes": 69243717
+    },
+    {
+      "title": "Woningprestaties 2022-07-22 ANON.xlsx",
+      "sha256": "141a82b767c8a5a1e8288fbe9d5eaeb6e982b2c4e75977b577708ce644291a13"
+    },
+    {
+      "title": "Detaildata woning_arnpivgi.xlsx",
+      "sha256": "2fa913d91c9107596339cb508cbfe74097f7e81f17953cd7c2f2368be3ddb9a1"
+    },
+    {
+      "title": "Detaildata woning_mkpiieku.xlsx",
+      "sha256": "71b72ec906a3bdbe354adbd950facce28dfd93fb5da9de06b3bc7afa5faecdf6"
+    }
+  ],
+  "contributors": [
+    {
+      "title": "Wattopia",
+      "role": "author"
+    },
+    {
+      "title": "Out of Harm's Way",
+      "role": "author"
+    },
+    {
+      "title": "RVO",
+      "role": "publisher"
+    }
+  ],
+  "keywords": [
+    "woningprestaties",
+    "monitoring",
+    "warmtepomp",
+    "tijdreeksen"
+  ],
+  "resources": [
+    {
+      "name": "projecten",
+      "title": "Projecten",
+      "description": "Eén rij per project: typologie, schil en installaties (tabblad Projectdata).",
+      "format": "parquet",
+      "mediatype": "application/vnd.apache.parquet",
+      "path": "data/processed/projecten.parquet",
+      "schema": {
+        "fields": [
+          {
+            "name": "projectcode__str",
+            "type": "string",
+            "description": "Willekeurige projectcode uit de anonimisering."
+          },
+          {
+            "name": "woningen_met_monitoring__0",
+            "type": "integer",
+            "description": "Aantal woningen in het project met monitoringdata (verhuld, zie codeboek)."
+          },
+          {
+            "name": "knmi_station__str",
+            "type": "string",
+            "description": "KNMI-weerstation dat bij het project hoort; geen locatie van de woning."
+          },
+          {
+            "name": "bouwjaar_afgerond__0",
+            "type": "integer",
+            "description": "Bouwjaar, afgerond door de anonimisering."
+          },
+          {
+            "name": "renovatiejaar_afgerond__0",
+            "type": "integer",
+            "description": "Renovatiejaar, afgerond door de anonimisering."
+          },
+          {
+            "name": "gebruiksoppervlak_afgerond__m2",
+            "type": "integer",
+            "description": "Gebruiksoppervlak, afgerond door de anonimisering."
+          },
+          {
+            "name": "woningtypologie__cat",
+            "type": "string",
+            "description": "Woningtypologie volgens het keuzemenu."
+          },
+          {
+            "name": "woningtypologie_buiten_keuzemenu__bool",
+            "type": "boolean",
+            "description": "Waarde van woningtypologie__cat staat niet in het keuzemenu (kolom Woningtypologie), na normalisatie van de aanhalingstekens; de oorspronkelijke tekst is behouden."
+          },
+          {
+            "name": "epv__bool",
+            "type": "boolean",
+            "description": "Energieprestatievergoeding (ja/nee)."
+          },
+          {
+            "name": "actieve_koeling__bool",
+            "type": "boolean",
+            "description": "Actieve koeling aanwezig (ja/nee)."
+          },
+          {
+            "name": "netto_warmtevraag_klasse__cat",
+            "type": "string",
+            "description": "Klasse van de netto warmtevraag na renovatie."
+          },
+          {
+            "name": "netto_warmtevraag_klasse_buiten_keuzemenu__bool",
+            "type": "boolean",
+            "description": "Waarde van netto_warmtevraag_klasse__cat staat niet in het keuzemenu (kolom Netto warmtevraag na renovatie), na normalisatie van de aanhalingstekens; de oorspronkelijke tekst is behouden."
+          },
+          {
+            "name": "luchtdichtheid_qv10_klasse__cat",
+            "type": "string",
+            "description": "Klasse van de luchtdichtheid (qv;10)."
+          },
+          {
+            "name": "luchtdichtheid_qv10_klasse_buiten_keuzemenu__bool",
+            "type": "boolean",
+            "description": "Waarde van luchtdichtheid_qv10_klasse__cat staat niet in het keuzemenu (kolom Luchtdichtheid), na normalisatie van de aanhalingstekens; de oorspronkelijke tekst is behouden."
+          },
+          {
+            "name": "spouwmuurisolatie__bool",
+            "type": "boolean",
+            "description": "Spouwmuurisolatie (ja/nee)."
+          },
+          {
+            "name": "gevelisolatie_binnen__bool",
+            "type": "boolean",
+            "description": "Gevelisolatie aan de binnenzijde (ja/nee)."
+          },
+          {
+            "name": "gevelisolatie_buiten__bool",
+            "type": "boolean",
+            "description": "Gevelisolatie aan de buitenzijde (ja/nee)."
+          },
+          {
+            "name": "dakisolatie_binnen__bool",
+            "type": "boolean",
+            "description": "Dakisolatie aan de binnenzijde (ja/nee)."
+          },
+          {
+            "name": "dakisolatie_buiten__bool",
+            "type": "boolean",
+            "description": "Dakisolatie aan de buitenzijde (ja/nee)."
+          },
+          {
+            "name": "vloerisolatie__bool",
+            "type": "boolean",
+            "description": "Vloerisolatie (ja/nee)."
+          },
+          {
+            "name": "kozijnen_nieuw_hrpp__bool",
+            "type": "boolean",
+            "description": "Nieuwe kozijnen met tenminste HR++-glas (ja/nee)."
+          },
+          {
+            "name": "kozijnen_bestaand_hrpp__bool",
+            "type": "boolean",
+            "description": "Bestaande kozijnen met tenminste HR++-glas (ja/nee)."
+          },
+          {
+            "name": "kierdichting__bool",
+            "type": "boolean",
+            "description": "Kierdichting (ja/nee)."
+          },
+          {
+            "name": "bijzonderheden_schil__str",
+            "type": "string",
+            "description": "Vrije tekst over de schil."
+          },
+          {
+            "name": "opwekking_collectief__cat",
+            "type": "string",
+            "description": "Individuele of collectieve opwekking."
+          },
+          {
+            "name": "opwekking_collectief_buiten_keuzemenu__bool",
+            "type": "boolean",
+            "description": "Waarde van opwekking_collectief__cat staat niet in het keuzemenu (kolom Individueel of collectief), na normalisatie van de aanhalingstekens; de oorspronkelijke tekst is behouden."
+          },
+          {
+            "name": "warmteopwekker__cat",
+            "type": "string",
+            "description": "Type warmteopwekker."
+          },
+          {
+            "name": "warmteopwekker_buiten_keuzemenu__bool",
+            "type": "boolean",
+            "description": "Waarde van warmteopwekker__cat staat niet in het keuzemenu (kolom Warmteopwekker), na normalisatie van de aanhalingstekens; de oorspronkelijke tekst is behouden."
+          },
+          {
+            "name": "bron_warmteopwekker__cat",
+            "type": "string",
+            "description": "Bron van de warmteopwekker."
+          },
+          {
+            "name": "bron_warmteopwekker_buiten_keuzemenu__bool",
+            "type": "boolean",
+            "description": "Waarde van bron_warmteopwekker__cat staat niet in het keuzemenu (kolom Bron van de warmteopwekker), na normalisatie van de aanhalingstekens; de oorspronkelijke tekst is behouden."
+          },
+          {
+            "name": "afgiftesysteem__cat",
+            "type": "string",
+            "description": "Afgiftesysteem."
+          },
+          {
+            "name": "afgiftesysteem_buiten_keuzemenu__bool",
+            "type": "boolean",
+            "description": "Waarde van afgiftesysteem__cat staat niet in het keuzemenu (kolom Afgiftesysteem), na normalisatie van de aanhalingstekens; de oorspronkelijke tekst is behouden."
+          },
+          {
+            "name": "ventilatiesysteem__cat",
+            "type": "string",
+            "description": "Ventilatiesysteem."
+          },
+          {
+            "name": "ventilatiesysteem_buiten_keuzemenu__bool",
+            "type": "boolean",
+            "description": "Waarde van ventilatiesysteem__cat staat niet in het keuzemenu (kolom Ventilatiesysteem), na normalisatie van de aanhalingstekens; de oorspronkelijke tekst is behouden."
+          },
+          {
+            "name": "elektrische_opwekking__cat",
+            "type": "string",
+            "description": "Elektrische opwekking (kolom Energieopweksysteem in het keuzemenu)."
+          },
+          {
+            "name": "elektrische_opwekking_buiten_keuzemenu__bool",
+            "type": "boolean",
+            "description": "Waarde van elektrische_opwekking__cat staat niet in het keuzemenu (kolom Energieopweksysteem), na normalisatie van de aanhalingstekens; de oorspronkelijke tekst is behouden."
+          },
+          {
+            "name": "kookinstallatie__cat",
+            "type": "string",
+            "description": "Kookinstallatie."
+          },
+          {
+            "name": "kookinstallatie_buiten_keuzemenu__bool",
+            "type": "boolean",
+            "description": "Waarde van kookinstallatie__cat staat niet in het keuzemenu (kolom Kookinstallatie), na normalisatie van de aanhalingstekens; de oorspronkelijke tekst is behouden."
+          },
+          {
+            "name": "bijzonderheden_installaties__str",
+            "type": "string",
+            "description": "Vrije tekst over de installaties."
+          }
+        ],
+        "primaryKey": [
+          "projectcode__str"
+        ]
+      }
+    },
+    {
+      "name": "woningen_jaar",
+      "title": "Jaartotalen per woning",
+      "description": "Eén rij per woning: energie, warmte, binnenklimaat en gebruik over een jaar (tabblad Monitoringdata), met vlaggen.",
+      "format": "parquet",
+      "mediatype": "application/vnd.apache.parquet",
+      "path": "data/processed/woningen_jaar.parquet",
+      "schema": {
+        "fields": [
+          {
+            "name": "projectcode__str",
+            "type": "string",
+            "description": "Willekeurige projectcode; verwijst naar projecten."
+          },
+          {
+            "name": "woningcode__str",
+            "type": "string",
+            "description": "Willekeurige woningcode uit de anonimisering."
+          },
+          {
+            "name": "jaar_monitoring__0",
+            "type": "integer",
+            "description": "Kalenderjaar van de monitoring."
+          },
+          {
+            "name": "e_opwek__kWh_a_1",
+            "type": "number",
+            "description": "Opgewekte energie (zonnepanelen)."
+          },
+          {
+            "name": "e_opwekker_ruimte__kWh_a_1",
+            "type": "number",
+            "description": "Elektriciteit voor ruimteverwarming door de warmteopwekker(s)."
+          },
+          {
+            "name": "e_opwekker_tapwater__kWh_a_1",
+            "type": "number",
+            "description": "Elektriciteit voor warm tapwater door de warmteopwekker(s)."
+          },
+          {
+            "name": "e_opwekker_totaal__kWh_a_1",
+            "type": "number",
+            "description": "Totaal gebruikte elektriciteit door de warmteopwekker(s); in de detaildata warmtepomp plus booster."
+          },
+          {
+            "name": "q_ruimte__GJ_a_1",
+            "type": "number",
+            "description": "Geleverde warmte voor ruimteverwarming."
+          },
+          {
+            "name": "q_tapwater__GJ_a_1",
+            "type": "number",
+            "description": "Geleverde warmte voor warm tapwater."
+          },
+          {
+            "name": "q_totaal__GJ_a_1",
+            "type": "number",
+            "description": "Totaal geleverde warmte."
+          },
+          {
+            "name": "e_gebouw_overig__kWh_a_1",
+            "type": "number",
+            "description": "Elektriciteit voor overige gebouwgebonden functies (in de detaildata de WTW-regeling)."
+          },
+          {
+            "name": "e_beschikbaar_persoonlijk__kWh_a_1",
+            "type": "number",
+            "description": "Elektriciteit beschikbaar voor persoonlijk gebruik; mag negatief zijn."
+          },
+          {
+            "name": "e_persoonlijk__kWh_a_1",
+            "type": "number",
+            "description": "Daadwerkelijk persoonlijk elektriciteitsgebruik."
+          },
+          {
+            "name": "co2_stookseizoen__ppm",
+            "type": "number",
+            "description": "Luchtkwaliteit, CO2 in het stookseizoen."
+          },
+          {
+            "name": "rv_stookseizoen__pct",
+            "type": "number",
+            "description": "Luchtkwaliteit, relatieve vochtigheid in het stookseizoen."
+          },
+          {
+            "name": "gas_voor_renovatie__m3_a_1",
+            "type": "number",
+            "description": "Gasverbruik voor de renovatie."
+          },
+          {
+            "name": "e_voor_renovatie__kWh_a_1",
+            "type": "number",
+            "description": "Elektriciteitsgebruik voor de renovatie."
+          },
+          {
+            "name": "ligging__cat",
+            "type": "string",
+            "description": "Ligging van de woning (hoek of tussen)."
+          },
+          {
+            "name": "e_bundel_beloofd__kWh_a_1",
+            "type": "number",
+            "description": "Beloofde bundel voor huishoudelijk gebruik."
+          },
+          {
+            "name": "e_netto_afname__kWh_a_1",
+            "type": "number",
+            "description": "Netto afname van het net; mag negatief zijn."
+          },
+          {
+            "name": "temp_woonkamer_stookseizoen__degC",
+            "type": "number",
+            "description": "Gemeten temperatuur in de woonkamer in het stookseizoen."
+          },
+          {
+            "name": "temp_setpoint_woonkamer_stookseizoen__degC",
+            "type": "number",
+            "description": "Ingesteld setpoint van de woonkamer in het stookseizoen."
+          },
+          {
+            "name": "negatieve_waarde__bool",
+            "type": "boolean",
+            "description": "Regel: een energie- of warmtegrootheid (kWh of GJ per jaar) is kleiner dan 0, behalve e_beschikbaar_persoonlijk en e_netto_afname, die negatief mogen zijn."
+          },
+          {
+            "name": "setpoint_nul__bool",
+            "type": "boolean",
+            "description": "Regel: het setpoint van de woonkamer is 0 graden Celsius."
+          },
+          {
+            "name": "som_opwekker_klopt_niet__bool",
+            "type": "boolean",
+            "description": "Regel: ruimte, tapwater en totaal van de warmteopwekker zijn alle drie gevuld en het totaal wijkt meer dan 1 % af van de som. Leeg als niet alle drie gevuld zijn."
+          },
+          {
+            "name": "som_warmte_klopt_niet__bool",
+            "type": "boolean",
+            "description": "Regel: geleverde warmte voor ruimte, tapwater en totaal zijn alle drie gevuld en het totaal wijkt meer dan 1 % af van de som. Leeg als niet alle drie gevuld zijn."
+          },
+          {
+            "name": "balans_beschikbaar_klopt_niet__bool",
+            "type": "boolean",
+            "description": "Regel: opwek, totaal opwekker en overig gebouwgebonden zijn gevuld, en beschikbaar voor persoonlijk gebruik wijkt meer dan 1 % (en meer dan 10 kWh) af van opwek min totaal opwekker min overig. Leeg als een van de drie ontbreekt. Een afwijking is een definitieverschil of een meetfout; de pijplijn beslist dat niet."
+          }
+        ],
+        "primaryKey": [
+          "woningcode__str"
+        ]
+      }
+    },
+    {
+      "name": "detail_ruw_heatpump",
+      "title": "Ruwe metingen: HeatPump",
+      "description": "Getrouwe kopie van tabblad HeatPump van beide detailwoningen, met nieuwe kolomnamen en types en tijd in lokale tijd; geen andere waarden.",
+      "format": "parquet",
+      "mediatype": "application/vnd.apache.parquet",
+      "path": "data/processed/detail_ruw/HeatPump.parquet",
+      "schema": {
+        "fields": [
+          {
+            "name": "woningcode__str",
+            "type": "string",
+            "description": "Woningcode (W_ plus de code uit de bestandsnaam)."
+          },
+          {
+            "name": "tijdstip",
+            "type": "datetime",
+            "description": "Tijdstip van de meting, tz-aware Europe/Amsterdam, uit Timestamp."
+          },
+          {
+            "name": "timestamp_bron__s",
+            "type": "integer",
+            "description": "Oorspronkelijke Unix-seconden (UTC) uit de bron."
+          },
+          {
+            "name": "booster_status__bool",
+            "type": "boolean",
+            "description": "Status van de booster (bijverwarming), 0 of 1."
+          },
+          {
+            "name": "dhw_verboden__bool",
+            "type": "boolean",
+            "description": "Warm tapwater geblokkeerd, 0 of 1."
+          },
+          {
+            "name": "foutcode__str",
+            "type": "string",
+            "description": "Foutcode van de fabrikant, betekenis onbekend."
+          },
+          {
+            "name": "firmware_versie__str",
+            "type": "string",
+            "description": "Firmwareversie van de warmtepomp."
+          },
+          {
+            "name": "temp_aanvoer__degC",
+            "type": "number",
+            "description": "Aanvoertemperatuur."
+          },
+          {
+            "name": "dhw_geforceerd__bool",
+            "type": "boolean",
+            "description": "Warm tapwater geforceerd, 0 of 1."
+          },
+          {
+            "name": "verwarming_verboden__bool",
+            "type": "boolean",
+            "description": "Verwarming geblokkeerd, 0 of 1."
+          },
+          {
+            "name": "vakantie__bool",
+            "type": "boolean",
+            "description": "Vakantiestand, 0 of 1."
+          },
+          {
+            "name": "op_mode__cat",
+            "type": "string",
+            "description": "Bedrijfsmodus, code van de fabrikant, betekenis onbekend."
+          },
+          {
+            "name": "temp_buiten__degC",
+            "type": "number",
+            "description": "Buitentemperatuur zoals de warmtepomp die meet."
+          },
+          {
+            "name": "temp_retour__degC",
+            "type": "number",
+            "description": "Retourtemperatuur."
+          },
+          {
+            "name": "temp_ruimte_setpoint__degC",
+            "type": "number",
+            "description": "Gewenste ruimtetemperatuur (room_target_temp)."
+          },
+          {
+            "name": "temp_ruimte__degC",
+            "type": "number",
+            "description": "Ruimtetemperatuur zoals de warmtepomp die meet."
+          },
+          {
+            "name": "system_status__cat",
+            "type": "string",
+            "description": "Systeemstatus, code van de fabrikant, betekenis onbekend."
+          },
+          {
+            "name": "temp_doel__degC",
+            "type": "number",
+            "description": "Doeltemperatuur (target_temp)."
+          },
+          {
+            "name": "temp_ongespecificeerd__degC",
+            "type": "number",
+            "description": "Kolom temp van de bron; welke temperatuur dit is, is niet toegelicht."
+          }
+        ],
+        "primaryKey": [
+          "woningcode__str",
+          "timestamp_bron__s"
+        ]
+      }
+    },
+    {
+      "name": "detail_ruw_energyheatpump",
+      "title": "Ruwe metingen: energyHeatpump",
+      "description": "Getrouwe kopie van tabblad energyHeatpump van beide detailwoningen, met nieuwe kolomnamen en types en tijd in lokale tijd; geen andere waarden.",
+      "format": "parquet",
+      "mediatype": "application/vnd.apache.parquet",
+      "path": "data/processed/detail_ruw/energyHeatpump.parquet",
+      "schema": {
+        "fields": [
+          {
+            "name": "woningcode__str",
+            "type": "string",
+            "description": "Woningcode (W_ plus de code uit de bestandsnaam)."
+          },
+          {
+            "name": "tijdstip",
+            "type": "datetime",
+            "description": "Tijdstip van de meting, tz-aware Europe/Amsterdam, uit Timestamp."
+          },
+          {
+            "name": "timestamp_bron__s",
+            "type": "integer",
+            "description": "Oorspronkelijke Unix-seconden (UTC) uit de bron."
+          },
+          {
+            "name": "p__W",
+            "type": "number",
+            "description": "Vermogen op het meetmoment (teken zoals in de bron)."
+          },
+          {
+            "name": "e_in_cum__kWh",
+            "type": "number",
+            "description": "Meterstand van de energie, kWh (eenheid afgeleid en getoetst tegen de jaartotalen)."
+          }
+        ],
+        "primaryKey": [
+          "woningcode__str",
+          "timestamp_bron__s"
+        ]
+      }
+    },
+    {
+      "name": "detail_ruw_energybooster",
+      "title": "Ruwe metingen: energyBooster",
+      "description": "Getrouwe kopie van tabblad energyBooster van beide detailwoningen, met nieuwe kolomnamen en types en tijd in lokale tijd; geen andere waarden.",
+      "format": "parquet",
+      "mediatype": "application/vnd.apache.parquet",
+      "path": "data/processed/detail_ruw/energyBooster.parquet",
+      "schema": {
+        "fields": [
+          {
+            "name": "woningcode__str",
+            "type": "string",
+            "description": "Woningcode (W_ plus de code uit de bestandsnaam)."
+          },
+          {
+            "name": "tijdstip",
+            "type": "datetime",
+            "description": "Tijdstip van de meting, tz-aware Europe/Amsterdam, uit Timestamp."
+          },
+          {
+            "name": "timestamp_bron__s",
+            "type": "integer",
+            "description": "Oorspronkelijke Unix-seconden (UTC) uit de bron."
+          },
+          {
+            "name": "p__W",
+            "type": "number",
+            "description": "Vermogen op het meetmoment (teken zoals in de bron)."
+          },
+          {
+            "name": "e_in_cum__kWh",
+            "type": "number",
+            "description": "Meterstand van de energie, kWh (eenheid afgeleid en getoetst tegen de jaartotalen)."
+          }
+        ],
+        "primaryKey": [
+          "woningcode__str",
+          "timestamp_bron__s"
+        ]
+      }
+    },
+    {
+      "name": "detail_ruw_energyimmersion",
+      "title": "Ruwe metingen: energyImmersion",
+      "description": "Getrouwe kopie van tabblad energyImmersion van beide detailwoningen, met nieuwe kolomnamen en types en tijd in lokale tijd; geen andere waarden.",
+      "format": "parquet",
+      "mediatype": "application/vnd.apache.parquet",
+      "path": "data/processed/detail_ruw/energyImmersion.parquet",
+      "schema": {
+        "fields": [
+          {
+            "name": "woningcode__str",
+            "type": "string",
+            "description": "Woningcode (W_ plus de code uit de bestandsnaam)."
+          },
+          {
+            "name": "tijdstip",
+            "type": "datetime",
+            "description": "Tijdstip van de meting, tz-aware Europe/Amsterdam, uit Timestamp."
+          },
+          {
+            "name": "timestamp_bron__s",
+            "type": "integer",
+            "description": "Oorspronkelijke Unix-seconden (UTC) uit de bron."
+          },
+          {
+            "name": "p__W",
+            "type": "number",
+            "description": "Vermogen op het meetmoment (teken zoals in de bron)."
+          },
+          {
+            "name": "e_in_cum__kWh",
+            "type": "number",
+            "description": "Meterstand van de energie, kWh (eenheid afgeleid en getoetst tegen de jaartotalen)."
+          }
+        ],
+        "primaryKey": [
+          "woningcode__str",
+          "timestamp_bron__s"
+        ]
+      }
+    },
+    {
+      "name": "detail_ruw_energywtwreg",
+      "title": "Ruwe metingen: energyWtwReg",
+      "description": "Getrouwe kopie van tabblad energyWtwReg van beide detailwoningen, met nieuwe kolomnamen en types en tijd in lokale tijd; geen andere waarden.",
+      "format": "parquet",
+      "mediatype": "application/vnd.apache.parquet",
+      "path": "data/processed/detail_ruw/energyWtwReg.parquet",
+      "schema": {
+        "fields": [
+          {
+            "name": "woningcode__str",
+            "type": "string",
+            "description": "Woningcode (W_ plus de code uit de bestandsnaam)."
+          },
+          {
+            "name": "tijdstip",
+            "type": "datetime",
+            "description": "Tijdstip van de meting, tz-aware Europe/Amsterdam, uit Timestamp."
+          },
+          {
+            "name": "timestamp_bron__s",
+            "type": "integer",
+            "description": "Oorspronkelijke Unix-seconden (UTC) uit de bron."
+          },
+          {
+            "name": "p__W",
+            "type": "number",
+            "description": "Vermogen op het meetmoment (teken zoals in de bron)."
+          },
+          {
+            "name": "e_in_cum__kWh",
+            "type": "number",
+            "description": "Meterstand van de energie, kWh (eenheid afgeleid en getoetst tegen de jaartotalen)."
+          }
+        ],
+        "primaryKey": [
+          "woningcode__str",
+          "timestamp_bron__s"
+        ]
+      }
+    },
+    {
+      "name": "detail_ruw_solar",
+      "title": "Ruwe metingen: solar",
+      "description": "Getrouwe kopie van tabblad solar van beide detailwoningen, met nieuwe kolomnamen en types en tijd in lokale tijd; geen andere waarden.",
+      "format": "parquet",
+      "mediatype": "application/vnd.apache.parquet",
+      "path": "data/processed/detail_ruw/solar.parquet",
+      "schema": {
+        "fields": [
+          {
+            "name": "woningcode__str",
+            "type": "string",
+            "description": "Woningcode (W_ plus de code uit de bestandsnaam)."
+          },
+          {
+            "name": "tijdstip",
+            "type": "datetime",
+            "description": "Tijdstip van de meting, tz-aware Europe/Amsterdam, uit Timestamp."
+          },
+          {
+            "name": "timestamp_bron__s",
+            "type": "integer",
+            "description": "Oorspronkelijke Unix-seconden (UTC) uit de bron."
+          },
+          {
+            "name": "p__W",
+            "type": "number",
+            "description": "Vermogen; negatief bij opwek (tekenconventie van de bron, niet omgedraaid)."
+          },
+          {
+            "name": "e_in_cum__kWh",
+            "type": "number",
+            "description": "Meterstand ingaande energie, kWh."
+          },
+          {
+            "name": "e_uit_cum__kWh",
+            "type": "number",
+            "description": "Meterstand opgewekte energie, kWh."
+          }
+        ],
+        "primaryKey": [
+          "woningcode__str",
+          "timestamp_bron__s"
+        ]
+      }
+    },
+    {
+      "name": "detail_ruw_smartmeter",
+      "title": "Ruwe metingen: smartMeter",
+      "description": "Getrouwe kopie van tabblad smartMeter van beide detailwoningen, met nieuwe kolomnamen en types en tijd in lokale tijd; geen andere waarden.",
+      "format": "parquet",
+      "mediatype": "application/vnd.apache.parquet",
+      "path": "data/processed/detail_ruw/smartMeter.parquet",
+      "schema": {
+        "fields": [
+          {
+            "name": "woningcode__str",
+            "type": "string",
+            "description": "Woningcode (W_ plus de code uit de bestandsnaam)."
+          },
+          {
+            "name": "tijdstip",
+            "type": "datetime",
+            "description": "Tijdstip van de meting, tz-aware Europe/Amsterdam, uit Timestamp."
+          },
+          {
+            "name": "timestamp_bron__s",
+            "type": "integer",
+            "description": "Oorspronkelijke Unix-seconden (UTC) uit de bron."
+          },
+          {
+            "name": "e_in_laag_cum__kWh",
+            "type": "number",
+            "description": "Meterstand afname laag tarief, kWh."
+          },
+          {
+            "name": "e_in_normaal_cum__kWh",
+            "type": "number",
+            "description": "Meterstand afname normaal tarief, kWh."
+          },
+          {
+            "name": "e_uit_laag_cum__kWh",
+            "type": "number",
+            "description": "Meterstand teruglevering laag tarief, kWh."
+          },
+          {
+            "name": "e_uit_normaal_cum__kWh",
+            "type": "number",
+            "description": "Meterstand teruglevering normaal tarief, kWh."
+          },
+          {
+            "name": "p__W",
+            "type": "number",
+            "description": "Vermogen; positief bij afname, negatief bij teruglevering (tekenconventie van de bron)."
+          },
+          {
+            "name": "e_in_cum__kWh",
+            "type": "number",
+            "description": "Meterstand totale afname, kWh."
+          },
+          {
+            "name": "e_uit_cum__kWh",
+            "type": "number",
+            "description": "Meterstand totale teruglevering, kWh."
+          }
+        ],
+        "primaryKey": [
+          "woningcode__str",
+          "timestamp_bron__s"
+        ]
+      }
+    },
+    {
+      "name": "detail_ruw_flowheatspaceheating",
+      "title": "Ruwe metingen: flowHeatSpaceHeating",
+      "description": "Getrouwe kopie van tabblad flowHeatSpaceHeating van beide detailwoningen, met nieuwe kolomnamen en types en tijd in lokale tijd; geen andere waarden.",
+      "format": "parquet",
+      "mediatype": "application/vnd.apache.parquet",
+      "path": "data/processed/detail_ruw/flowHeatSpaceHeating.parquet",
+      "schema": {
+        "fields": [
+          {
+            "name": "woningcode__str",
+            "type": "string",
+            "description": "Woningcode (W_ plus de code uit de bestandsnaam)."
+          },
+          {
+            "name": "tijdstip",
+            "type": "datetime",
+            "description": "Tijdstip van de meting, tz-aware Europe/Amsterdam, uit Timestamp."
+          },
+          {
+            "name": "timestamp_bron__s",
+            "type": "integer",
+            "description": "Oorspronkelijke Unix-seconden (UTC) uit de bron."
+          },
+          {
+            "name": "temp_aanvoer__degC",
+            "type": "number",
+            "description": "Aanvoertemperatuur van de warmtemeter."
+          },
+          {
+            "name": "temp_retour__degC",
+            "type": "number",
+            "description": "Retourtemperatuur van de warmtemeter."
+          },
+          {
+            "name": "q_cum__GJ",
+            "type": "number",
+            "description": "Meterstand geleverde warmte, GJ."
+          },
+          {
+            "name": "volume_uit_cum__m3",
+            "type": "number",
+            "description": "Meterstand van het circulatiewater van de ruimteverwarming, m3 (resolutie 1 liter). Eenheid afgeleid: warmte, temperatuurverschil en volume sluiten op rho*c*V*dT (ontwerp §9.5)."
+          }
+        ],
+        "primaryKey": [
+          "woningcode__str",
+          "timestamp_bron__s"
+        ]
+      }
+    },
+    {
+      "name": "detail_ruw_waterflow",
+      "title": "Ruwe metingen: waterFlow",
+      "description": "Getrouwe kopie van tabblad waterFlow van beide detailwoningen, met nieuwe kolomnamen en types en tijd in lokale tijd; geen andere waarden.",
+      "format": "parquet",
+      "mediatype": "application/vnd.apache.parquet",
+      "path": "data/processed/detail_ruw/waterFlow.parquet",
+      "schema": {
+        "fields": [
+          {
+            "name": "woningcode__str",
+            "type": "string",
+            "description": "Woningcode (W_ plus de code uit de bestandsnaam)."
+          },
+          {
+            "name": "tijdstip",
+            "type": "datetime",
+            "description": "Tijdstip van de meting, tz-aware Europe/Amsterdam, uit Timestamp."
+          },
+          {
+            "name": "timestamp_bron__s",
+            "type": "integer",
+            "description": "Oorspronkelijke Unix-seconden (UTC) uit de bron."
+          },
+          {
+            "name": "temp_omgeving__degC",
+            "type": "number",
+            "description": "Omgevingstemperatuur (ambient_temp)."
+          },
+          {
+            "name": "temp_stroom_min__degC",
+            "type": "number",
+            "description": "Minimale stroomtemperatuur (min_flow_temp)."
+          },
+          {
+            "name": "volume_uit_cum__m3",
+            "type": "number",
+            "description": "Meterstand van het warme tapwater, m3 (resolutie 1 liter); vermoedelijk gemeten aan de koudwaterinlaat van het vat. Eenheid afgeleid uit het dagritme en de warmtebalans in de zomer, niet in de bron gedocumenteerd; of de meter al het warme water meet, is niet vast te stellen (ontwerp §9.5)."
+          }
+        ],
+        "primaryKey": [
+          "woningcode__str",
+          "timestamp_bron__s"
+        ]
+      }
+    },
+    {
+      "name": "detail_ruw_ventilation",
+      "title": "Ruwe metingen: ventilation",
+      "description": "Getrouwe kopie van tabblad ventilation van beide detailwoningen, met nieuwe kolomnamen en types en tijd in lokale tijd; geen andere waarden.",
+      "format": "parquet",
+      "mediatype": "application/vnd.apache.parquet",
+      "path": "data/processed/detail_ruw/ventilation.parquet",
+      "schema": {
+        "fields": [
+          {
+            "name": "woningcode__str",
+            "type": "string",
+            "description": "Woningcode (W_ plus de code uit de bestandsnaam)."
+          },
+          {
+            "name": "tijdstip",
+            "type": "datetime",
+            "description": "Tijdstip van de meting, tz-aware Europe/Amsterdam, uit Timestamp."
+          },
+          {
+            "name": "timestamp_bron__s",
+            "type": "integer",
+            "description": "Oorspronkelijke Unix-seconden (UTC) uit de bron."
+          },
+          {
+            "name": "foutcode__str",
+            "type": "string",
+            "description": "Foutcode van de ventilatie-unit."
+          },
+          {
+            "name": "debiet_afvoer__onbekend",
+            "type": "number",
+            "description": "Afvoerdebiet; eenheid onbekend."
+          },
+          {
+            "name": "filter__cat",
+            "type": "string",
+            "description": "Filterstatus, code van de fabrikant."
+          },
+          {
+            "name": "temp_buiten__degC",
+            "type": "number",
+            "description": "Buitentemperatuur zoals de ventilatie-unit die meet."
+          },
+          {
+            "name": "temp_ruimte__degC",
+            "type": "number",
+            "description": "Ruimtetemperatuur zoals de ventilatie-unit die meet."
+          },
+          {
+            "name": "debiet_toevoer__onbekend",
+            "type": "number",
+            "description": "Toevoerdebiet; eenheid onbekend."
+          }
+        ],
+        "primaryKey": [
+          "woningcode__str",
+          "timestamp_bron__s"
+        ]
+      }
+    },
+    {
+      "name": "detail_ruw_co2sensor",
+      "title": "Ruwe metingen: co2sensor",
+      "description": "Getrouwe kopie van tabblad co2sensor van beide detailwoningen, met nieuwe kolomnamen en types en tijd in lokale tijd; geen andere waarden.",
+      "format": "parquet",
+      "mediatype": "application/vnd.apache.parquet",
+      "path": "data/processed/detail_ruw/co2sensor.parquet",
+      "schema": {
+        "fields": [
+          {
+            "name": "woningcode__str",
+            "type": "string",
+            "description": "Woningcode (W_ plus de code uit de bestandsnaam)."
+          },
+          {
+            "name": "tijdstip",
+            "type": "datetime",
+            "description": "Tijdstip van de meting, tz-aware Europe/Amsterdam, uit Timestamp."
+          },
+          {
+            "name": "timestamp_bron__s",
+            "type": "integer",
+            "description": "Oorspronkelijke Unix-seconden (UTC) uit de bron."
+          },
+          {
+            "name": "co2__ppm",
+            "type": "number",
+            "description": "CO2-concentratie (eenheid niet toegelicht in de bron; ppm aangenomen)."
+          },
+          {
+            "name": "rv__pct",
+            "type": "number",
+            "description": "Relatieve vochtigheid."
+          },
+          {
+            "name": "temp_ruimte__degC",
+            "type": "number",
+            "description": "Ruimtetemperatuur van de CO2-sensor."
+          },
+          {
+            "name": "voc__onbekend",
+            "type": "number",
+            "description": "VOC-waarde van de sensor; eenheid onbekend en niet in de bron gedocumenteerd. Waarschijnlijkst een dimensieloze luchtkwaliteitsindex (ondergrens 1,0, resolutie 0,1); niet als concentratie gebruiken (ontwerp §9.5)."
+          }
+        ],
+        "primaryKey": [
+          "woningcode__str",
+          "timestamp_bron__s"
+        ]
+      }
+    },
+    {
+      "name": "detail_ruw_thermostat",
+      "title": "Ruwe metingen: thermostat",
+      "description": "Getrouwe kopie van tabblad thermostat van beide detailwoningen, met nieuwe kolomnamen en types en tijd in lokale tijd; geen andere waarden.",
+      "format": "parquet",
+      "mediatype": "application/vnd.apache.parquet",
+      "path": "data/processed/detail_ruw/thermostat.parquet",
+      "schema": {
+        "fields": [
+          {
+            "name": "woningcode__str",
+            "type": "string",
+            "description": "Woningcode (W_ plus de code uit de bestandsnaam)."
+          },
+          {
+            "name": "tijdstip",
+            "type": "datetime",
+            "description": "Tijdstip van de meting, tz-aware Europe/Amsterdam, uit Timestamp."
+          },
+          {
+            "name": "timestamp_bron__s",
+            "type": "integer",
+            "description": "Oorspronkelijke Unix-seconden (UTC) uit de bron."
+          },
+          {
+            "name": "temp_thermostaat__degC",
+            "type": "number",
+            "description": "Temperatuur zoals de thermostaat die meet."
+          }
+        ],
+        "primaryKey": [
+          "woningcode__str",
+          "timestamp_bron__s"
+        ]
+      }
+    },
+    {
+      "name": "detail_ruw_relay1",
+      "title": "Ruwe metingen: relay1",
+      "description": "Getrouwe kopie van tabblad relay1 van beide detailwoningen, met nieuwe kolomnamen en types en tijd in lokale tijd; geen andere waarden.",
+      "format": "parquet",
+      "mediatype": "application/vnd.apache.parquet",
+      "path": "data/processed/detail_ruw/relay1.parquet",
+      "schema": {
+        "fields": [
+          {
+            "name": "woningcode__str",
+            "type": "string",
+            "description": "Woningcode (W_ plus de code uit de bestandsnaam)."
+          },
+          {
+            "name": "tijdstip",
+            "type": "datetime",
+            "description": "Tijdstip van de meting, tz-aware Europe/Amsterdam, uit Timestamp."
+          },
+          {
+            "name": "timestamp_bron__s",
+            "type": "integer",
+            "description": "Oorspronkelijke Unix-seconden (UTC) uit de bron."
+          },
+          {
+            "name": "status__bool",
+            "type": "boolean",
+            "description": "Relaisstatus, 0 of 1."
+          }
+        ],
+        "primaryKey": [
+          "woningcode__str",
+          "timestamp_bron__s"
+        ]
+      }
+    },
+    {
+      "name": "detail_ruw_relay2",
+      "title": "Ruwe metingen: relay2",
+      "description": "Getrouwe kopie van tabblad relay2 van beide detailwoningen, met nieuwe kolomnamen en types en tijd in lokale tijd; geen andere waarden.",
+      "format": "parquet",
+      "mediatype": "application/vnd.apache.parquet",
+      "path": "data/processed/detail_ruw/relay2.parquet",
+      "schema": {
+        "fields": [
+          {
+            "name": "woningcode__str",
+            "type": "string",
+            "description": "Woningcode (W_ plus de code uit de bestandsnaam)."
+          },
+          {
+            "name": "tijdstip",
+            "type": "datetime",
+            "description": "Tijdstip van de meting, tz-aware Europe/Amsterdam, uit Timestamp."
+          },
+          {
+            "name": "timestamp_bron__s",
+            "type": "integer",
+            "description": "Oorspronkelijke Unix-seconden (UTC) uit de bron."
+          },
+          {
+            "name": "status__bool",
+            "type": "boolean",
+            "description": "Relaisstatus, 0 of 1."
+          }
+        ],
+        "primaryKey": [
+          "woningcode__str",
+          "timestamp_bron__s"
+        ]
+      }
+    },
+    {
+      "name": "detail_ruw_relay24v",
+      "title": "Ruwe metingen: relay24v",
+      "description": "Getrouwe kopie van tabblad relay24v van beide detailwoningen, met nieuwe kolomnamen en types en tijd in lokale tijd; geen andere waarden.",
+      "format": "parquet",
+      "mediatype": "application/vnd.apache.parquet",
+      "path": "data/processed/detail_ruw/relay24v.parquet",
+      "schema": {
+        "fields": [
+          {
+            "name": "woningcode__str",
+            "type": "string",
+            "description": "Woningcode (W_ plus de code uit de bestandsnaam)."
+          },
+          {
+            "name": "tijdstip",
+            "type": "datetime",
+            "description": "Tijdstip van de meting, tz-aware Europe/Amsterdam, uit Timestamp."
+          },
+          {
+            "name": "timestamp_bron__s",
+            "type": "integer",
+            "description": "Oorspronkelijke Unix-seconden (UTC) uit de bron."
+          },
+          {
+            "name": "status__bool",
+            "type": "boolean",
+            "description": "Relaisstatus, 0 of 1."
+          }
+        ],
+        "primaryKey": [
+          "woningcode__str",
+          "timestamp_bron__s"
+        ]
+      }
+    },
+    {
+      "name": "detail_ruw_immersion",
+      "title": "Ruwe metingen: immersion",
+      "description": "Getrouwe kopie van tabblad immersion van beide detailwoningen, met nieuwe kolomnamen en types en tijd in lokale tijd; geen andere waarden.",
+      "format": "parquet",
+      "mediatype": "application/vnd.apache.parquet",
+      "path": "data/processed/detail_ruw/immersion.parquet",
+      "schema": {
+        "fields": [
+          {
+            "name": "woningcode__str",
+            "type": "string",
+            "description": "Woningcode (W_ plus de code uit de bestandsnaam)."
+          },
+          {
+            "name": "tijdstip",
+            "type": "datetime",
+            "description": "Tijdstip van de meting, tz-aware Europe/Amsterdam, uit Timestamp."
+          },
+          {
+            "name": "timestamp_bron__s",
+            "type": "integer",
+            "description": "Oorspronkelijke Unix-seconden (UTC) uit de bron."
+          },
+          {
+            "name": "status__bool",
+            "type": "boolean",
+            "description": "Status van het element in het vat, 0 of 1."
+          }
+        ],
+        "primaryKey": [
+          "woningcode__str",
+          "timestamp_bron__s"
+        ]
+      }
+    },
+    {
+      "name": "detail_5min",
+      "title": "Twee woningen per vijf minuten",
+      "description": "Gemeenschappelijk raster van vijf minuten over kalenderjaar 2019, met vermogens uit tellers, steekproeven en vlaggen.",
+      "format": "parquet",
+      "mediatype": "application/vnd.apache.parquet",
+      "path": "data/processed/detail_5min.parquet",
+      "schema": {
+        "fields": [
+          {
+            "name": "woningcode__str",
+            "type": "string",
+            "description": "Woningcode (W_ plus de code uit de bestandsnaam)."
+          },
+          {
+            "name": "tijdstip_start",
+            "type": "datetime",
+            "description": "Begin van het interval [tijdstip_start, tijdstip_start + 5 min), tz-aware Europe/Amsterdam."
+          },
+          {
+            "name": "p_warmtepomp__W",
+            "type": "number",
+            "description": "Gemiddeld elektrisch vermogen van de warmtepomp over het interval. Δstand / Δt tussen de intervalgrenzen; leeg als niet gedekt of als de teller daalt."
+          },
+          {
+            "name": "p_booster__W",
+            "type": "number",
+            "description": "Gemiddeld elektrisch vermogen van de booster (elektrische bijverwarming). Δstand / Δt tussen de intervalgrenzen; leeg als niet gedekt of als de teller daalt."
+          },
+          {
+            "name": "p_vatelement__W",
+            "type": "number",
+            "description": "Gemiddeld elektrisch vermogen van het element in het vat. Δstand / Δt tussen de intervalgrenzen; leeg als niet gedekt of als de teller daalt."
+          },
+          {
+            "name": "p_wtw__W",
+            "type": "number",
+            "description": "Gemiddeld elektrisch vermogen van de WTW-regeling (overige gebouwgebonden). Δstand / Δt tussen de intervalgrenzen; leeg als niet gedekt of als de teller daalt."
+          },
+          {
+            "name": "p_pv_opwek__W",
+            "type": "number",
+            "description": "Gemiddeld opgewekt vermogen van de zonnepanelen, positief (uit total_energy_out). Δstand / Δt tussen de intervalgrenzen; leeg als niet gedekt of als de teller daalt."
+          },
+          {
+            "name": "p_net_afname__W",
+            "type": "number",
+            "description": "Gemiddeld vermogen afgenomen van het net, positief. Δstand / Δt tussen de intervalgrenzen; leeg als niet gedekt of als de teller daalt."
+          },
+          {
+            "name": "p_net_teruglevering__W",
+            "type": "number",
+            "description": "Gemiddeld vermogen teruggeleverd aan het net, positief. Δstand / Δt tussen de intervalgrenzen; leeg als niet gedekt of als de teller daalt."
+          },
+          {
+            "name": "q_ruimte__W",
+            "type": "number",
+            "description": "Gemiddeld thermisch vermogen geleverd voor ruimteverwarming (uit GJ). Δstand / Δt tussen de intervalgrenzen; leeg als niet gedekt of als de teller daalt."
+          },
+          {
+            "name": "p_warmtepomp_gedekt__bool",
+            "type": "boolean",
+            "description": "De tellerstand van energyHeatpump.e_in_cum__kWh kon op beide grenzen van het interval worden geïnterpoleerd (omringende metingen minder dan 15 minuten uit elkaar)."
+          },
+          {
+            "name": "p_warmtepomp_teller_daalt__bool",
+            "type": "boolean",
+            "description": "De tellerstand van energyHeatpump.e_in_cum__kWh daalt in dit interval; het vermogen is dan leeg."
+          },
+          {
+            "name": "p_booster_gedekt__bool",
+            "type": "boolean",
+            "description": "De tellerstand van energyBooster.e_in_cum__kWh kon op beide grenzen van het interval worden geïnterpoleerd (omringende metingen minder dan 15 minuten uit elkaar)."
+          },
+          {
+            "name": "p_booster_teller_daalt__bool",
+            "type": "boolean",
+            "description": "De tellerstand van energyBooster.e_in_cum__kWh daalt in dit interval; het vermogen is dan leeg."
+          },
+          {
+            "name": "p_vatelement_gedekt__bool",
+            "type": "boolean",
+            "description": "De tellerstand van energyImmersion.e_in_cum__kWh kon op beide grenzen van het interval worden geïnterpoleerd (omringende metingen minder dan 15 minuten uit elkaar)."
+          },
+          {
+            "name": "p_vatelement_teller_daalt__bool",
+            "type": "boolean",
+            "description": "De tellerstand van energyImmersion.e_in_cum__kWh daalt in dit interval; het vermogen is dan leeg."
+          },
+          {
+            "name": "p_wtw_gedekt__bool",
+            "type": "boolean",
+            "description": "De tellerstand van energyWtwReg.e_in_cum__kWh kon op beide grenzen van het interval worden geïnterpoleerd (omringende metingen minder dan 15 minuten uit elkaar)."
+          },
+          {
+            "name": "p_wtw_teller_daalt__bool",
+            "type": "boolean",
+            "description": "De tellerstand van energyWtwReg.e_in_cum__kWh daalt in dit interval; het vermogen is dan leeg."
+          },
+          {
+            "name": "p_pv_opwek_gedekt__bool",
+            "type": "boolean",
+            "description": "De tellerstand van solar.e_uit_cum__kWh kon op beide grenzen van het interval worden geïnterpoleerd (omringende metingen minder dan 15 minuten uit elkaar)."
+          },
+          {
+            "name": "p_pv_opwek_teller_daalt__bool",
+            "type": "boolean",
+            "description": "De tellerstand van solar.e_uit_cum__kWh daalt in dit interval; het vermogen is dan leeg."
+          },
+          {
+            "name": "p_net_afname_gedekt__bool",
+            "type": "boolean",
+            "description": "De tellerstand van smartMeter.e_in_cum__kWh kon op beide grenzen van het interval worden geïnterpoleerd (omringende metingen minder dan 15 minuten uit elkaar)."
+          },
+          {
+            "name": "p_net_afname_teller_daalt__bool",
+            "type": "boolean",
+            "description": "De tellerstand van smartMeter.e_in_cum__kWh daalt in dit interval; het vermogen is dan leeg."
+          },
+          {
+            "name": "p_net_teruglevering_gedekt__bool",
+            "type": "boolean",
+            "description": "De tellerstand van smartMeter.e_uit_cum__kWh kon op beide grenzen van het interval worden geïnterpoleerd (omringende metingen minder dan 15 minuten uit elkaar)."
+          },
+          {
+            "name": "p_net_teruglevering_teller_daalt__bool",
+            "type": "boolean",
+            "description": "De tellerstand van smartMeter.e_uit_cum__kWh daalt in dit interval; het vermogen is dan leeg."
+          },
+          {
+            "name": "q_ruimte_gedekt__bool",
+            "type": "boolean",
+            "description": "De tellerstand van flowHeatSpaceHeating.q_cum__GJ kon op beide grenzen van het interval worden geïnterpoleerd (omringende metingen minder dan 15 minuten uit elkaar)."
+          },
+          {
+            "name": "q_ruimte_teller_daalt__bool",
+            "type": "boolean",
+            "description": "De tellerstand van flowHeatSpaceHeating.q_cum__GJ daalt in dit interval; het vermogen is dan leeg."
+          },
+          {
+            "name": "heatpump_tijdstip_steekproef",
+            "type": "datetime",
+            "description": "Tijdstip van de laatste meting van tabblad HeatPump binnen het interval; leeg als er geen was."
+          },
+          {
+            "name": "heatpump_booster_status_steekproef__bool",
+            "type": "boolean",
+            "description": "Steekproef (laatste meting binnen het interval, geen gemiddelde) van HeatPump.booster_status. Status van de booster (bijverwarming), 0 of 1."
+          },
+          {
+            "name": "heatpump_dhw_verboden_steekproef__bool",
+            "type": "boolean",
+            "description": "Steekproef (laatste meting binnen het interval, geen gemiddelde) van HeatPump.dhw_prohibit. Warm tapwater geblokkeerd, 0 of 1."
+          },
+          {
+            "name": "heatpump_foutcode_steekproef__str",
+            "type": "string",
+            "description": "Steekproef (laatste meting binnen het interval, geen gemiddelde) van HeatPump.error_code. Foutcode van de fabrikant, betekenis onbekend."
+          },
+          {
+            "name": "heatpump_firmware_versie_steekproef__str",
+            "type": "string",
+            "description": "Steekproef (laatste meting binnen het interval, geen gemiddelde) van HeatPump.firmware_version. Firmwareversie van de warmtepomp."
+          },
+          {
+            "name": "heatpump_temp_aanvoer_steekproef__degC",
+            "type": "number",
+            "description": "Steekproef (laatste meting binnen het interval, geen gemiddelde) van HeatPump.flow_temp. Aanvoertemperatuur."
+          },
+          {
+            "name": "heatpump_temp_aanvoer_steekproef_buiten_bereik__bool",
+            "type": "boolean",
+            "description": "De ruwe waarde van heatpump_temp_aanvoer_steekproef__degC lag buiten -40 tot 120 graden Celsius; de waarde is dan leeg, de ruwe laag houdt hem."
+          },
+          {
+            "name": "heatpump_dhw_geforceerd_steekproef__bool",
+            "type": "boolean",
+            "description": "Steekproef (laatste meting binnen het interval, geen gemiddelde) van HeatPump.force_dhw. Warm tapwater geforceerd, 0 of 1."
+          },
+          {
+            "name": "heatpump_verwarming_verboden_steekproef__bool",
+            "type": "boolean",
+            "description": "Steekproef (laatste meting binnen het interval, geen gemiddelde) van HeatPump.heating_prohibit. Verwarming geblokkeerd, 0 of 1."
+          },
+          {
+            "name": "heatpump_vakantie_steekproef__bool",
+            "type": "boolean",
+            "description": "Steekproef (laatste meting binnen het interval, geen gemiddelde) van HeatPump.holiday. Vakantiestand, 0 of 1."
+          },
+          {
+            "name": "heatpump_op_mode_steekproef__cat",
+            "type": "string",
+            "description": "Steekproef (laatste meting binnen het interval, geen gemiddelde) van HeatPump.op_mode. Bedrijfsmodus, code van de fabrikant, betekenis onbekend."
+          },
+          {
+            "name": "heatpump_temp_buiten_steekproef__degC",
+            "type": "number",
+            "description": "Steekproef (laatste meting binnen het interval, geen gemiddelde) van HeatPump.outdoor_temp. Buitentemperatuur zoals de warmtepomp die meet."
+          },
+          {
+            "name": "heatpump_temp_buiten_steekproef_buiten_bereik__bool",
+            "type": "boolean",
+            "description": "De ruwe waarde van heatpump_temp_buiten_steekproef__degC lag buiten -40 tot 120 graden Celsius; de waarde is dan leeg, de ruwe laag houdt hem."
+          },
+          {
+            "name": "heatpump_temp_retour_steekproef__degC",
+            "type": "number",
+            "description": "Steekproef (laatste meting binnen het interval, geen gemiddelde) van HeatPump.return_temp. Retourtemperatuur."
+          },
+          {
+            "name": "heatpump_temp_retour_steekproef_buiten_bereik__bool",
+            "type": "boolean",
+            "description": "De ruwe waarde van heatpump_temp_retour_steekproef__degC lag buiten -40 tot 120 graden Celsius; de waarde is dan leeg, de ruwe laag houdt hem."
+          },
+          {
+            "name": "heatpump_temp_ruimte_setpoint_steekproef__degC",
+            "type": "number",
+            "description": "Steekproef (laatste meting binnen het interval, geen gemiddelde) van HeatPump.room_target_temp. Gewenste ruimtetemperatuur (room_target_temp)."
+          },
+          {
+            "name": "heatpump_temp_ruimte_setpoint_steekproef_buiten_bereik__bool",
+            "type": "boolean",
+            "description": "De ruwe waarde van heatpump_temp_ruimte_setpoint_steekproef__degC lag buiten -40 tot 120 graden Celsius of was 0 of lager (kamertemperatuur); de waarde is dan leeg, de ruwe laag houdt hem."
+          },
+          {
+            "name": "heatpump_temp_ruimte_steekproef__degC",
+            "type": "number",
+            "description": "Steekproef (laatste meting binnen het interval, geen gemiddelde) van HeatPump.room_temp. Ruimtetemperatuur zoals de warmtepomp die meet."
+          },
+          {
+            "name": "heatpump_temp_ruimte_steekproef_buiten_bereik__bool",
+            "type": "boolean",
+            "description": "De ruwe waarde van heatpump_temp_ruimte_steekproef__degC lag buiten -40 tot 120 graden Celsius of was 0 of lager (kamertemperatuur); de waarde is dan leeg, de ruwe laag houdt hem."
+          },
+          {
+            "name": "heatpump_system_status_steekproef__cat",
+            "type": "string",
+            "description": "Steekproef (laatste meting binnen het interval, geen gemiddelde) van HeatPump.system_status. Systeemstatus, code van de fabrikant, betekenis onbekend."
+          },
+          {
+            "name": "heatpump_temp_doel_steekproef__degC",
+            "type": "number",
+            "description": "Steekproef (laatste meting binnen het interval, geen gemiddelde) van HeatPump.target_temp. Doeltemperatuur (target_temp)."
+          },
+          {
+            "name": "heatpump_temp_doel_steekproef_buiten_bereik__bool",
+            "type": "boolean",
+            "description": "De ruwe waarde van heatpump_temp_doel_steekproef__degC lag buiten -40 tot 120 graden Celsius; de waarde is dan leeg, de ruwe laag houdt hem."
+          },
+          {
+            "name": "heatpump_temp_ongespecificeerd_steekproef__degC",
+            "type": "number",
+            "description": "Steekproef (laatste meting binnen het interval, geen gemiddelde) van HeatPump.temp. Kolom temp van de bron; welke temperatuur dit is, is niet toegelicht."
+          },
+          {
+            "name": "heatpump_temp_ongespecificeerd_steekproef_buiten_bereik__bool",
+            "type": "boolean",
+            "description": "De ruwe waarde van heatpump_temp_ongespecificeerd_steekproef__degC lag buiten -40 tot 120 graden Celsius; de waarde is dan leeg, de ruwe laag houdt hem."
+          },
+          {
+            "name": "energyheatpump_tijdstip_steekproef",
+            "type": "datetime",
+            "description": "Tijdstip van de laatste meting van tabblad energyHeatpump binnen het interval; leeg als er geen was."
+          },
+          {
+            "name": "energyheatpump_p_steekproef__W",
+            "type": "number",
+            "description": "Steekproef (laatste meting binnen het interval, geen gemiddelde) van energyHeatpump.power. Vermogen op het meetmoment (teken zoals in de bron)."
+          },
+          {
+            "name": "energybooster_tijdstip_steekproef",
+            "type": "datetime",
+            "description": "Tijdstip van de laatste meting van tabblad energyBooster binnen het interval; leeg als er geen was."
+          },
+          {
+            "name": "energybooster_p_steekproef__W",
+            "type": "number",
+            "description": "Steekproef (laatste meting binnen het interval, geen gemiddelde) van energyBooster.power. Vermogen op het meetmoment (teken zoals in de bron)."
+          },
+          {
+            "name": "energyimmersion_tijdstip_steekproef",
+            "type": "datetime",
+            "description": "Tijdstip van de laatste meting van tabblad energyImmersion binnen het interval; leeg als er geen was."
+          },
+          {
+            "name": "energyimmersion_p_steekproef__W",
+            "type": "number",
+            "description": "Steekproef (laatste meting binnen het interval, geen gemiddelde) van energyImmersion.power. Vermogen op het meetmoment (teken zoals in de bron)."
+          },
+          {
+            "name": "energywtwreg_tijdstip_steekproef",
+            "type": "datetime",
+            "description": "Tijdstip van de laatste meting van tabblad energyWtwReg binnen het interval; leeg als er geen was."
+          },
+          {
+            "name": "energywtwreg_p_steekproef__W",
+            "type": "number",
+            "description": "Steekproef (laatste meting binnen het interval, geen gemiddelde) van energyWtwReg.power. Vermogen op het meetmoment (teken zoals in de bron)."
+          },
+          {
+            "name": "solar_tijdstip_steekproef",
+            "type": "datetime",
+            "description": "Tijdstip van de laatste meting van tabblad solar binnen het interval; leeg als er geen was."
+          },
+          {
+            "name": "solar_p_steekproef__W",
+            "type": "number",
+            "description": "Steekproef (laatste meting binnen het interval, geen gemiddelde) van solar.power. Vermogen; negatief bij opwek (tekenconventie van de bron, niet omgedraaid)."
+          },
+          {
+            "name": "solar_e_in_cum_steekproef__kWh",
+            "type": "number",
+            "description": "Steekproef (laatste meting binnen het interval, geen gemiddelde) van solar.total_energy_in. Meterstand ingaande energie, kWh."
+          },
+          {
+            "name": "smartmeter_tijdstip_steekproef",
+            "type": "datetime",
+            "description": "Tijdstip van de laatste meting van tabblad smartMeter binnen het interval; leeg als er geen was."
+          },
+          {
+            "name": "smartmeter_p_steekproef__W",
+            "type": "number",
+            "description": "Steekproef (laatste meting binnen het interval, geen gemiddelde) van smartMeter.power. Vermogen; positief bij afname, negatief bij teruglevering (tekenconventie van de bron)."
+          },
+          {
+            "name": "flowheatspaceheating_tijdstip_steekproef",
+            "type": "datetime",
+            "description": "Tijdstip van de laatste meting van tabblad flowHeatSpaceHeating binnen het interval; leeg als er geen was."
+          },
+          {
+            "name": "flowheatspaceheating_temp_aanvoer_steekproef__degC",
+            "type": "number",
+            "description": "Steekproef (laatste meting binnen het interval, geen gemiddelde) van flowHeatSpaceHeating.flow_temp. Aanvoertemperatuur van de warmtemeter."
+          },
+          {
+            "name": "flowheatspaceheating_temp_aanvoer_steekproef_buiten_bereik__bool",
+            "type": "boolean",
+            "description": "De ruwe waarde van flowheatspaceheating_temp_aanvoer_steekproef__degC lag buiten -40 tot 120 graden Celsius; de waarde is dan leeg, de ruwe laag houdt hem."
+          },
+          {
+            "name": "flowheatspaceheating_temp_retour_steekproef__degC",
+            "type": "number",
+            "description": "Steekproef (laatste meting binnen het interval, geen gemiddelde) van flowHeatSpaceHeating.return_temp. Retourtemperatuur van de warmtemeter."
+          },
+          {
+            "name": "flowheatspaceheating_temp_retour_steekproef_buiten_bereik__bool",
+            "type": "boolean",
+            "description": "De ruwe waarde van flowheatspaceheating_temp_retour_steekproef__degC lag buiten -40 tot 120 graden Celsius; de waarde is dan leeg, de ruwe laag houdt hem."
+          },
+          {
+            "name": "flowheatspaceheating_volume_uit_cum_steekproef__m3",
+            "type": "number",
+            "description": "Steekproef (laatste meting binnen het interval, geen gemiddelde) van flowHeatSpaceHeating.volume_out. Meterstand van het circulatiewater van de ruimteverwarming, m3 (resolutie 1 liter). Eenheid afgeleid: warmte, temperatuurverschil en volume sluiten op rho*c*V*dT (ontwerp §9.5)."
+          },
+          {
+            "name": "waterflow_tijdstip_steekproef",
+            "type": "datetime",
+            "description": "Tijdstip van de laatste meting van tabblad waterFlow binnen het interval; leeg als er geen was."
+          },
+          {
+            "name": "waterflow_temp_omgeving_steekproef__degC",
+            "type": "number",
+            "description": "Steekproef (laatste meting binnen het interval, geen gemiddelde) van waterFlow.ambient_temp. Omgevingstemperatuur (ambient_temp)."
+          },
+          {
+            "name": "waterflow_temp_omgeving_steekproef_buiten_bereik__bool",
+            "type": "boolean",
+            "description": "De ruwe waarde van waterflow_temp_omgeving_steekproef__degC lag buiten -40 tot 120 graden Celsius; de waarde is dan leeg, de ruwe laag houdt hem."
+          },
+          {
+            "name": "waterflow_temp_stroom_min_steekproef__degC",
+            "type": "number",
+            "description": "Steekproef (laatste meting binnen het interval, geen gemiddelde) van waterFlow.min_flow_temp. Minimale stroomtemperatuur (min_flow_temp)."
+          },
+          {
+            "name": "waterflow_temp_stroom_min_steekproef_buiten_bereik__bool",
+            "type": "boolean",
+            "description": "De ruwe waarde van waterflow_temp_stroom_min_steekproef__degC lag buiten -40 tot 120 graden Celsius; de waarde is dan leeg, de ruwe laag houdt hem."
+          },
+          {
+            "name": "waterflow_volume_uit_cum_steekproef__m3",
+            "type": "number",
+            "description": "Steekproef (laatste meting binnen het interval, geen gemiddelde) van waterFlow.volume_out. Meterstand van het warme tapwater, m3 (resolutie 1 liter); vermoedelijk gemeten aan de koudwaterinlaat van het vat. Eenheid afgeleid uit het dagritme en de warmtebalans in de zomer, niet in de bron gedocumenteerd; of de meter al het warme water meet, is niet vast te stellen (ontwerp §9.5)."
+          },
+          {
+            "name": "ventilation_tijdstip_steekproef",
+            "type": "datetime",
+            "description": "Tijdstip van de laatste meting van tabblad ventilation binnen het interval; leeg als er geen was."
+          },
+          {
+            "name": "ventilation_foutcode_steekproef__str",
+            "type": "string",
+            "description": "Steekproef (laatste meting binnen het interval, geen gemiddelde) van ventilation.error_code. Foutcode van de ventilatie-unit."
+          },
+          {
+            "name": "ventilation_debiet_afvoer_steekproef__onbekend",
+            "type": "number",
+            "description": "Steekproef (laatste meting binnen het interval, geen gemiddelde) van ventilation.exhaust_flow. Afvoerdebiet; eenheid onbekend."
+          },
+          {
+            "name": "ventilation_filter_steekproef__cat",
+            "type": "string",
+            "description": "Steekproef (laatste meting binnen het interval, geen gemiddelde) van ventilation.filter. Filterstatus, code van de fabrikant."
+          },
+          {
+            "name": "ventilation_temp_buiten_steekproef__degC",
+            "type": "number",
+            "description": "Steekproef (laatste meting binnen het interval, geen gemiddelde) van ventilation.outdoor_temp. Buitentemperatuur zoals de ventilatie-unit die meet."
+          },
+          {
+            "name": "ventilation_temp_buiten_steekproef_buiten_bereik__bool",
+            "type": "boolean",
+            "description": "De ruwe waarde van ventilation_temp_buiten_steekproef__degC lag buiten -40 tot 120 graden Celsius; de waarde is dan leeg, de ruwe laag houdt hem."
+          },
+          {
+            "name": "ventilation_temp_ruimte_steekproef__degC",
+            "type": "number",
+            "description": "Steekproef (laatste meting binnen het interval, geen gemiddelde) van ventilation.room_temp. Ruimtetemperatuur zoals de ventilatie-unit die meet."
+          },
+          {
+            "name": "ventilation_temp_ruimte_steekproef_buiten_bereik__bool",
+            "type": "boolean",
+            "description": "De ruwe waarde van ventilation_temp_ruimte_steekproef__degC lag buiten -40 tot 120 graden Celsius of was 0 of lager (kamertemperatuur); de waarde is dan leeg, de ruwe laag houdt hem."
+          },
+          {
+            "name": "ventilation_debiet_toevoer_steekproef__onbekend",
+            "type": "number",
+            "description": "Steekproef (laatste meting binnen het interval, geen gemiddelde) van ventilation.supply_flow. Toevoerdebiet; eenheid onbekend."
+          },
+          {
+            "name": "co2sensor_tijdstip_steekproef",
+            "type": "datetime",
+            "description": "Tijdstip van de laatste meting van tabblad co2sensor binnen het interval; leeg als er geen was."
+          },
+          {
+            "name": "co2sensor_co2_steekproef__ppm",
+            "type": "number",
+            "description": "Steekproef (laatste meting binnen het interval, geen gemiddelde) van co2sensor.co2. CO2-concentratie (eenheid niet toegelicht in de bron; ppm aangenomen)."
+          },
+          {
+            "name": "co2sensor_rv_steekproef__pct",
+            "type": "number",
+            "description": "Steekproef (laatste meting binnen het interval, geen gemiddelde) van co2sensor.humidity. Relatieve vochtigheid."
+          },
+          {
+            "name": "co2sensor_temp_ruimte_steekproef__degC",
+            "type": "number",
+            "description": "Steekproef (laatste meting binnen het interval, geen gemiddelde) van co2sensor.temp. Ruimtetemperatuur van de CO2-sensor."
+          },
+          {
+            "name": "co2sensor_temp_ruimte_steekproef_buiten_bereik__bool",
+            "type": "boolean",
+            "description": "De ruwe waarde van co2sensor_temp_ruimte_steekproef__degC lag buiten -40 tot 120 graden Celsius of was 0 of lager (kamertemperatuur); de waarde is dan leeg, de ruwe laag houdt hem."
+          },
+          {
+            "name": "co2sensor_voc_steekproef__onbekend",
+            "type": "number",
+            "description": "Steekproef (laatste meting binnen het interval, geen gemiddelde) van co2sensor.voc. VOC-waarde van de sensor; eenheid onbekend en niet in de bron gedocumenteerd. Waarschijnlijkst een dimensieloze luchtkwaliteitsindex (ondergrens 1,0, resolutie 0,1); niet als concentratie gebruiken (ontwerp §9.5)."
+          },
+          {
+            "name": "thermostat_tijdstip_steekproef",
+            "type": "datetime",
+            "description": "Tijdstip van de laatste meting van tabblad thermostat binnen het interval; leeg als er geen was."
+          },
+          {
+            "name": "thermostat_temp_thermostaat_steekproef__degC",
+            "type": "number",
+            "description": "Steekproef (laatste meting binnen het interval, geen gemiddelde) van thermostat.temp. Temperatuur zoals de thermostaat die meet."
+          },
+          {
+            "name": "thermostat_temp_thermostaat_steekproef_buiten_bereik__bool",
+            "type": "boolean",
+            "description": "De ruwe waarde van thermostat_temp_thermostaat_steekproef__degC lag buiten -40 tot 120 graden Celsius of was 0 of lager (kamertemperatuur); de waarde is dan leeg, de ruwe laag houdt hem."
+          },
+          {
+            "name": "relay1_tijdstip_steekproef",
+            "type": "datetime",
+            "description": "Tijdstip van de laatste meting van tabblad relay1 binnen het interval; leeg als er geen was."
+          },
+          {
+            "name": "relay1_status_steekproef__bool",
+            "type": "boolean",
+            "description": "Steekproef (laatste meting binnen het interval, geen gemiddelde) van relay1.status. Relaisstatus, 0 of 1."
+          },
+          {
+            "name": "relay2_tijdstip_steekproef",
+            "type": "datetime",
+            "description": "Tijdstip van de laatste meting van tabblad relay2 binnen het interval; leeg als er geen was."
+          },
+          {
+            "name": "relay2_status_steekproef__bool",
+            "type": "boolean",
+            "description": "Steekproef (laatste meting binnen het interval, geen gemiddelde) van relay2.status. Relaisstatus, 0 of 1."
+          },
+          {
+            "name": "relay24v_tijdstip_steekproef",
+            "type": "datetime",
+            "description": "Tijdstip van de laatste meting van tabblad relay24v binnen het interval; leeg als er geen was."
+          },
+          {
+            "name": "relay24v_status_steekproef__bool",
+            "type": "boolean",
+            "description": "Steekproef (laatste meting binnen het interval, geen gemiddelde) van relay24v.status. Relaisstatus, 0 of 1."
+          },
+          {
+            "name": "immersion_tijdstip_steekproef",
+            "type": "datetime",
+            "description": "Tijdstip van de laatste meting van tabblad immersion binnen het interval; leeg als er geen was."
+          },
+          {
+            "name": "immersion_status_steekproef__bool",
+            "type": "boolean",
+            "description": "Steekproef (laatste meting binnen het interval, geen gemiddelde) van immersion.status. Status van het element in het vat, 0 of 1."
+          }
+        ],
+        "primaryKey": [
+          "woningcode__str",
+          "tijdstip_start"
+        ]
+      }
+    },
+    {
+      "name": "detail_kwartier",
+      "title": "Twee woningen per kwartier",
+      "description": "Drie intervallen van vijf minuten opgeteld tot een kwartier.",
+      "format": "parquet",
+      "mediatype": "application/vnd.apache.parquet",
+      "path": "data/processed/detail_kwartier.parquet",
+      "schema": {
+        "fields": [
+          {
+            "name": "woningcode__str",
+            "type": "string",
+            "description": "Woningcode (W_ plus de code uit de bestandsnaam)."
+          },
+          {
+            "name": "tijdstip_start",
+            "type": "datetime",
+            "description": "Begin van het kwartier [tijdstip_start, tijdstip_start + 15 min), tz-aware Europe/Amsterdam."
+          },
+          {
+            "name": "p_warmtepomp__W",
+            "type": "number",
+            "description": "Gemiddeld elektrisch vermogen van de warmtepomp over het interval. Gemiddelde van drie intervallen van vijf minuten; alleen als alle drie gedekt zijn."
+          },
+          {
+            "name": "p_booster__W",
+            "type": "number",
+            "description": "Gemiddeld elektrisch vermogen van de booster (elektrische bijverwarming). Gemiddelde van drie intervallen van vijf minuten; alleen als alle drie gedekt zijn."
+          },
+          {
+            "name": "p_vatelement__W",
+            "type": "number",
+            "description": "Gemiddeld elektrisch vermogen van het element in het vat. Gemiddelde van drie intervallen van vijf minuten; alleen als alle drie gedekt zijn."
+          },
+          {
+            "name": "p_wtw__W",
+            "type": "number",
+            "description": "Gemiddeld elektrisch vermogen van de WTW-regeling (overige gebouwgebonden). Gemiddelde van drie intervallen van vijf minuten; alleen als alle drie gedekt zijn."
+          },
+          {
+            "name": "p_pv_opwek__W",
+            "type": "number",
+            "description": "Gemiddeld opgewekt vermogen van de zonnepanelen, positief (uit total_energy_out). Gemiddelde van drie intervallen van vijf minuten; alleen als alle drie gedekt zijn."
+          },
+          {
+            "name": "p_net_afname__W",
+            "type": "number",
+            "description": "Gemiddeld vermogen afgenomen van het net, positief. Gemiddelde van drie intervallen van vijf minuten; alleen als alle drie gedekt zijn."
+          },
+          {
+            "name": "p_net_teruglevering__W",
+            "type": "number",
+            "description": "Gemiddeld vermogen teruggeleverd aan het net, positief. Gemiddelde van drie intervallen van vijf minuten; alleen als alle drie gedekt zijn."
+          },
+          {
+            "name": "q_ruimte__W",
+            "type": "number",
+            "description": "Gemiddeld thermisch vermogen geleverd voor ruimteverwarming (uit GJ). Gemiddelde van drie intervallen van vijf minuten; alleen als alle drie gedekt zijn."
+          },
+          {
+            "name": "p_warmtepomp_onvolledig__bool",
+            "type": "boolean",
+            "description": "Minstens een van de drie intervallen van vijf minuten had geen vermogen (niet gedekt of dalende teller); het kwartiergemiddelde is dan leeg."
+          },
+          {
+            "name": "p_booster_onvolledig__bool",
+            "type": "boolean",
+            "description": "Minstens een van de drie intervallen van vijf minuten had geen vermogen (niet gedekt of dalende teller); het kwartiergemiddelde is dan leeg."
+          },
+          {
+            "name": "p_vatelement_onvolledig__bool",
+            "type": "boolean",
+            "description": "Minstens een van de drie intervallen van vijf minuten had geen vermogen (niet gedekt of dalende teller); het kwartiergemiddelde is dan leeg."
+          },
+          {
+            "name": "p_wtw_onvolledig__bool",
+            "type": "boolean",
+            "description": "Minstens een van de drie intervallen van vijf minuten had geen vermogen (niet gedekt of dalende teller); het kwartiergemiddelde is dan leeg."
+          },
+          {
+            "name": "p_pv_opwek_onvolledig__bool",
+            "type": "boolean",
+            "description": "Minstens een van de drie intervallen van vijf minuten had geen vermogen (niet gedekt of dalende teller); het kwartiergemiddelde is dan leeg."
+          },
+          {
+            "name": "p_net_afname_onvolledig__bool",
+            "type": "boolean",
+            "description": "Minstens een van de drie intervallen van vijf minuten had geen vermogen (niet gedekt of dalende teller); het kwartiergemiddelde is dan leeg."
+          },
+          {
+            "name": "p_net_teruglevering_onvolledig__bool",
+            "type": "boolean",
+            "description": "Minstens een van de drie intervallen van vijf minuten had geen vermogen (niet gedekt of dalende teller); het kwartiergemiddelde is dan leeg."
+          },
+          {
+            "name": "q_ruimte_onvolledig__bool",
+            "type": "boolean",
+            "description": "Minstens een van de drie intervallen van vijf minuten had geen vermogen (niet gedekt of dalende teller); het kwartiergemiddelde is dan leeg."
+          },
+          {
+            "name": "heatpump_tijdstip_steekproef",
+            "type": "datetime",
+            "description": "Tijdstip van de laatste meting van tabblad HeatPump binnen het interval; leeg als er geen was. Van het laatste interval van het kwartier."
+          },
+          {
+            "name": "heatpump_booster_status_steekproef__bool",
+            "type": "boolean",
+            "description": "Steekproef (laatste meting binnen het interval, geen gemiddelde) van HeatPump.booster_status. Status van de booster (bijverwarming), 0 of 1. Van het laatste interval van het kwartier."
+          },
+          {
+            "name": "heatpump_dhw_verboden_steekproef__bool",
+            "type": "boolean",
+            "description": "Steekproef (laatste meting binnen het interval, geen gemiddelde) van HeatPump.dhw_prohibit. Warm tapwater geblokkeerd, 0 of 1. Van het laatste interval van het kwartier."
+          },
+          {
+            "name": "heatpump_foutcode_steekproef__str",
+            "type": "string",
+            "description": "Steekproef (laatste meting binnen het interval, geen gemiddelde) van HeatPump.error_code. Foutcode van de fabrikant, betekenis onbekend. Van het laatste interval van het kwartier."
+          },
+          {
+            "name": "heatpump_firmware_versie_steekproef__str",
+            "type": "string",
+            "description": "Steekproef (laatste meting binnen het interval, geen gemiddelde) van HeatPump.firmware_version. Firmwareversie van de warmtepomp. Van het laatste interval van het kwartier."
+          },
+          {
+            "name": "heatpump_temp_aanvoer_steekproef__degC",
+            "type": "number",
+            "description": "Steekproef (laatste meting binnen het interval, geen gemiddelde) van HeatPump.flow_temp. Aanvoertemperatuur. Van het laatste interval van het kwartier."
+          },
+          {
+            "name": "heatpump_temp_aanvoer_steekproef_buiten_bereik__bool",
+            "type": "boolean",
+            "description": "De ruwe waarde van heatpump_temp_aanvoer_steekproef__degC lag buiten -40 tot 120 graden Celsius; de waarde is dan leeg, de ruwe laag houdt hem."
+          },
+          {
+            "name": "heatpump_dhw_geforceerd_steekproef__bool",
+            "type": "boolean",
+            "description": "Steekproef (laatste meting binnen het interval, geen gemiddelde) van HeatPump.force_dhw. Warm tapwater geforceerd, 0 of 1. Van het laatste interval van het kwartier."
+          },
+          {
+            "name": "heatpump_verwarming_verboden_steekproef__bool",
+            "type": "boolean",
+            "description": "Steekproef (laatste meting binnen het interval, geen gemiddelde) van HeatPump.heating_prohibit. Verwarming geblokkeerd, 0 of 1. Van het laatste interval van het kwartier."
+          },
+          {
+            "name": "heatpump_vakantie_steekproef__bool",
+            "type": "boolean",
+            "description": "Steekproef (laatste meting binnen het interval, geen gemiddelde) van HeatPump.holiday. Vakantiestand, 0 of 1. Van het laatste interval van het kwartier."
+          },
+          {
+            "name": "heatpump_op_mode_steekproef__cat",
+            "type": "string",
+            "description": "Steekproef (laatste meting binnen het interval, geen gemiddelde) van HeatPump.op_mode. Bedrijfsmodus, code van de fabrikant, betekenis onbekend. Van het laatste interval van het kwartier."
+          },
+          {
+            "name": "heatpump_temp_buiten_steekproef__degC",
+            "type": "number",
+            "description": "Steekproef (laatste meting binnen het interval, geen gemiddelde) van HeatPump.outdoor_temp. Buitentemperatuur zoals de warmtepomp die meet. Van het laatste interval van het kwartier."
+          },
+          {
+            "name": "heatpump_temp_buiten_steekproef_buiten_bereik__bool",
+            "type": "boolean",
+            "description": "De ruwe waarde van heatpump_temp_buiten_steekproef__degC lag buiten -40 tot 120 graden Celsius; de waarde is dan leeg, de ruwe laag houdt hem."
+          },
+          {
+            "name": "heatpump_temp_retour_steekproef__degC",
+            "type": "number",
+            "description": "Steekproef (laatste meting binnen het interval, geen gemiddelde) van HeatPump.return_temp. Retourtemperatuur. Van het laatste interval van het kwartier."
+          },
+          {
+            "name": "heatpump_temp_retour_steekproef_buiten_bereik__bool",
+            "type": "boolean",
+            "description": "De ruwe waarde van heatpump_temp_retour_steekproef__degC lag buiten -40 tot 120 graden Celsius; de waarde is dan leeg, de ruwe laag houdt hem."
+          },
+          {
+            "name": "heatpump_temp_ruimte_setpoint_steekproef__degC",
+            "type": "number",
+            "description": "Steekproef (laatste meting binnen het interval, geen gemiddelde) van HeatPump.room_target_temp. Gewenste ruimtetemperatuur (room_target_temp). Van het laatste interval van het kwartier."
+          },
+          {
+            "name": "heatpump_temp_ruimte_setpoint_steekproef_buiten_bereik__bool",
+            "type": "boolean",
+            "description": "De ruwe waarde van heatpump_temp_ruimte_setpoint_steekproef__degC lag buiten -40 tot 120 graden Celsius of was 0 of lager (kamertemperatuur); de waarde is dan leeg, de ruwe laag houdt hem."
+          },
+          {
+            "name": "heatpump_temp_ruimte_steekproef__degC",
+            "type": "number",
+            "description": "Steekproef (laatste meting binnen het interval, geen gemiddelde) van HeatPump.room_temp. Ruimtetemperatuur zoals de warmtepomp die meet. Van het laatste interval van het kwartier."
+          },
+          {
+            "name": "heatpump_temp_ruimte_steekproef_buiten_bereik__bool",
+            "type": "boolean",
+            "description": "De ruwe waarde van heatpump_temp_ruimte_steekproef__degC lag buiten -40 tot 120 graden Celsius of was 0 of lager (kamertemperatuur); de waarde is dan leeg, de ruwe laag houdt hem."
+          },
+          {
+            "name": "heatpump_system_status_steekproef__cat",
+            "type": "string",
+            "description": "Steekproef (laatste meting binnen het interval, geen gemiddelde) van HeatPump.system_status. Systeemstatus, code van de fabrikant, betekenis onbekend. Van het laatste interval van het kwartier."
+          },
+          {
+            "name": "heatpump_temp_doel_steekproef__degC",
+            "type": "number",
+            "description": "Steekproef (laatste meting binnen het interval, geen gemiddelde) van HeatPump.target_temp. Doeltemperatuur (target_temp). Van het laatste interval van het kwartier."
+          },
+          {
+            "name": "heatpump_temp_doel_steekproef_buiten_bereik__bool",
+            "type": "boolean",
+            "description": "De ruwe waarde van heatpump_temp_doel_steekproef__degC lag buiten -40 tot 120 graden Celsius; de waarde is dan leeg, de ruwe laag houdt hem."
+          },
+          {
+            "name": "heatpump_temp_ongespecificeerd_steekproef__degC",
+            "type": "number",
+            "description": "Steekproef (laatste meting binnen het interval, geen gemiddelde) van HeatPump.temp. Kolom temp van de bron; welke temperatuur dit is, is niet toegelicht. Van het laatste interval van het kwartier."
+          },
+          {
+            "name": "heatpump_temp_ongespecificeerd_steekproef_buiten_bereik__bool",
+            "type": "boolean",
+            "description": "De ruwe waarde van heatpump_temp_ongespecificeerd_steekproef__degC lag buiten -40 tot 120 graden Celsius; de waarde is dan leeg, de ruwe laag houdt hem."
+          },
+          {
+            "name": "energyheatpump_tijdstip_steekproef",
+            "type": "datetime",
+            "description": "Tijdstip van de laatste meting van tabblad energyHeatpump binnen het interval; leeg als er geen was. Van het laatste interval van het kwartier."
+          },
+          {
+            "name": "energyheatpump_p_steekproef__W",
+            "type": "number",
+            "description": "Steekproef (laatste meting binnen het interval, geen gemiddelde) van energyHeatpump.power. Vermogen op het meetmoment (teken zoals in de bron). Van het laatste interval van het kwartier."
+          },
+          {
+            "name": "energybooster_tijdstip_steekproef",
+            "type": "datetime",
+            "description": "Tijdstip van de laatste meting van tabblad energyBooster binnen het interval; leeg als er geen was. Van het laatste interval van het kwartier."
+          },
+          {
+            "name": "energybooster_p_steekproef__W",
+            "type": "number",
+            "description": "Steekproef (laatste meting binnen het interval, geen gemiddelde) van energyBooster.power. Vermogen op het meetmoment (teken zoals in de bron). Van het laatste interval van het kwartier."
+          },
+          {
+            "name": "energyimmersion_tijdstip_steekproef",
+            "type": "datetime",
+            "description": "Tijdstip van de laatste meting van tabblad energyImmersion binnen het interval; leeg als er geen was. Van het laatste interval van het kwartier."
+          },
+          {
+            "name": "energyimmersion_p_steekproef__W",
+            "type": "number",
+            "description": "Steekproef (laatste meting binnen het interval, geen gemiddelde) van energyImmersion.power. Vermogen op het meetmoment (teken zoals in de bron). Van het laatste interval van het kwartier."
+          },
+          {
+            "name": "energywtwreg_tijdstip_steekproef",
+            "type": "datetime",
+            "description": "Tijdstip van de laatste meting van tabblad energyWtwReg binnen het interval; leeg als er geen was. Van het laatste interval van het kwartier."
+          },
+          {
+            "name": "energywtwreg_p_steekproef__W",
+            "type": "number",
+            "description": "Steekproef (laatste meting binnen het interval, geen gemiddelde) van energyWtwReg.power. Vermogen op het meetmoment (teken zoals in de bron). Van het laatste interval van het kwartier."
+          },
+          {
+            "name": "solar_tijdstip_steekproef",
+            "type": "datetime",
+            "description": "Tijdstip van de laatste meting van tabblad solar binnen het interval; leeg als er geen was. Van het laatste interval van het kwartier."
+          },
+          {
+            "name": "solar_p_steekproef__W",
+            "type": "number",
+            "description": "Steekproef (laatste meting binnen het interval, geen gemiddelde) van solar.power. Vermogen; negatief bij opwek (tekenconventie van de bron, niet omgedraaid). Van het laatste interval van het kwartier."
+          },
+          {
+            "name": "solar_e_in_cum_steekproef__kWh",
+            "type": "number",
+            "description": "Steekproef (laatste meting binnen het interval, geen gemiddelde) van solar.total_energy_in. Meterstand ingaande energie, kWh. Van het laatste interval van het kwartier."
+          },
+          {
+            "name": "smartmeter_tijdstip_steekproef",
+            "type": "datetime",
+            "description": "Tijdstip van de laatste meting van tabblad smartMeter binnen het interval; leeg als er geen was. Van het laatste interval van het kwartier."
+          },
+          {
+            "name": "smartmeter_p_steekproef__W",
+            "type": "number",
+            "description": "Steekproef (laatste meting binnen het interval, geen gemiddelde) van smartMeter.power. Vermogen; positief bij afname, negatief bij teruglevering (tekenconventie van de bron). Van het laatste interval van het kwartier."
+          },
+          {
+            "name": "flowheatspaceheating_tijdstip_steekproef",
+            "type": "datetime",
+            "description": "Tijdstip van de laatste meting van tabblad flowHeatSpaceHeating binnen het interval; leeg als er geen was. Van het laatste interval van het kwartier."
+          },
+          {
+            "name": "flowheatspaceheating_temp_aanvoer_steekproef__degC",
+            "type": "number",
+            "description": "Steekproef (laatste meting binnen het interval, geen gemiddelde) van flowHeatSpaceHeating.flow_temp. Aanvoertemperatuur van de warmtemeter. Van het laatste interval van het kwartier."
+          },
+          {
+            "name": "flowheatspaceheating_temp_aanvoer_steekproef_buiten_bereik__bool",
+            "type": "boolean",
+            "description": "De ruwe waarde van flowheatspaceheating_temp_aanvoer_steekproef__degC lag buiten -40 tot 120 graden Celsius; de waarde is dan leeg, de ruwe laag houdt hem."
+          },
+          {
+            "name": "flowheatspaceheating_temp_retour_steekproef__degC",
+            "type": "number",
+            "description": "Steekproef (laatste meting binnen het interval, geen gemiddelde) van flowHeatSpaceHeating.return_temp. Retourtemperatuur van de warmtemeter. Van het laatste interval van het kwartier."
+          },
+          {
+            "name": "flowheatspaceheating_temp_retour_steekproef_buiten_bereik__bool",
+            "type": "boolean",
+            "description": "De ruwe waarde van flowheatspaceheating_temp_retour_steekproef__degC lag buiten -40 tot 120 graden Celsius; de waarde is dan leeg, de ruwe laag houdt hem."
+          },
+          {
+            "name": "flowheatspaceheating_volume_uit_cum_steekproef__m3",
+            "type": "number",
+            "description": "Steekproef (laatste meting binnen het interval, geen gemiddelde) van flowHeatSpaceHeating.volume_out. Meterstand van het circulatiewater van de ruimteverwarming, m3 (resolutie 1 liter). Eenheid afgeleid: warmte, temperatuurverschil en volume sluiten op rho*c*V*dT (ontwerp §9.5). Van het laatste interval van het kwartier."
+          },
+          {
+            "name": "waterflow_tijdstip_steekproef",
+            "type": "datetime",
+            "description": "Tijdstip van de laatste meting van tabblad waterFlow binnen het interval; leeg als er geen was. Van het laatste interval van het kwartier."
+          },
+          {
+            "name": "waterflow_temp_omgeving_steekproef__degC",
+            "type": "number",
+            "description": "Steekproef (laatste meting binnen het interval, geen gemiddelde) van waterFlow.ambient_temp. Omgevingstemperatuur (ambient_temp). Van het laatste interval van het kwartier."
+          },
+          {
+            "name": "waterflow_temp_omgeving_steekproef_buiten_bereik__bool",
+            "type": "boolean",
+            "description": "De ruwe waarde van waterflow_temp_omgeving_steekproef__degC lag buiten -40 tot 120 graden Celsius; de waarde is dan leeg, de ruwe laag houdt hem."
+          },
+          {
+            "name": "waterflow_temp_stroom_min_steekproef__degC",
+            "type": "number",
+            "description": "Steekproef (laatste meting binnen het interval, geen gemiddelde) van waterFlow.min_flow_temp. Minimale stroomtemperatuur (min_flow_temp). Van het laatste interval van het kwartier."
+          },
+          {
+            "name": "waterflow_temp_stroom_min_steekproef_buiten_bereik__bool",
+            "type": "boolean",
+            "description": "De ruwe waarde van waterflow_temp_stroom_min_steekproef__degC lag buiten -40 tot 120 graden Celsius; de waarde is dan leeg, de ruwe laag houdt hem."
+          },
+          {
+            "name": "waterflow_volume_uit_cum_steekproef__m3",
+            "type": "number",
+            "description": "Steekproef (laatste meting binnen het interval, geen gemiddelde) van waterFlow.volume_out. Meterstand van het warme tapwater, m3 (resolutie 1 liter); vermoedelijk gemeten aan de koudwaterinlaat van het vat. Eenheid afgeleid uit het dagritme en de warmtebalans in de zomer, niet in de bron gedocumenteerd; of de meter al het warme water meet, is niet vast te stellen (ontwerp §9.5). Van het laatste interval van het kwartier."
+          },
+          {
+            "name": "ventilation_tijdstip_steekproef",
+            "type": "datetime",
+            "description": "Tijdstip van de laatste meting van tabblad ventilation binnen het interval; leeg als er geen was. Van het laatste interval van het kwartier."
+          },
+          {
+            "name": "ventilation_foutcode_steekproef__str",
+            "type": "string",
+            "description": "Steekproef (laatste meting binnen het interval, geen gemiddelde) van ventilation.error_code. Foutcode van de ventilatie-unit. Van het laatste interval van het kwartier."
+          },
+          {
+            "name": "ventilation_debiet_afvoer_steekproef__onbekend",
+            "type": "number",
+            "description": "Steekproef (laatste meting binnen het interval, geen gemiddelde) van ventilation.exhaust_flow. Afvoerdebiet; eenheid onbekend. Van het laatste interval van het kwartier."
+          },
+          {
+            "name": "ventilation_filter_steekproef__cat",
+            "type": "string",
+            "description": "Steekproef (laatste meting binnen het interval, geen gemiddelde) van ventilation.filter. Filterstatus, code van de fabrikant. Van het laatste interval van het kwartier."
+          },
+          {
+            "name": "ventilation_temp_buiten_steekproef__degC",
+            "type": "number",
+            "description": "Steekproef (laatste meting binnen het interval, geen gemiddelde) van ventilation.outdoor_temp. Buitentemperatuur zoals de ventilatie-unit die meet. Van het laatste interval van het kwartier."
+          },
+          {
+            "name": "ventilation_temp_buiten_steekproef_buiten_bereik__bool",
+            "type": "boolean",
+            "description": "De ruwe waarde van ventilation_temp_buiten_steekproef__degC lag buiten -40 tot 120 graden Celsius; de waarde is dan leeg, de ruwe laag houdt hem."
+          },
+          {
+            "name": "ventilation_temp_ruimte_steekproef__degC",
+            "type": "number",
+            "description": "Steekproef (laatste meting binnen het interval, geen gemiddelde) van ventilation.room_temp. Ruimtetemperatuur zoals de ventilatie-unit die meet. Van het laatste interval van het kwartier."
+          },
+          {
+            "name": "ventilation_temp_ruimte_steekproef_buiten_bereik__bool",
+            "type": "boolean",
+            "description": "De ruwe waarde van ventilation_temp_ruimte_steekproef__degC lag buiten -40 tot 120 graden Celsius of was 0 of lager (kamertemperatuur); de waarde is dan leeg, de ruwe laag houdt hem."
+          },
+          {
+            "name": "ventilation_debiet_toevoer_steekproef__onbekend",
+            "type": "number",
+            "description": "Steekproef (laatste meting binnen het interval, geen gemiddelde) van ventilation.supply_flow. Toevoerdebiet; eenheid onbekend. Van het laatste interval van het kwartier."
+          },
+          {
+            "name": "co2sensor_tijdstip_steekproef",
+            "type": "datetime",
+            "description": "Tijdstip van de laatste meting van tabblad co2sensor binnen het interval; leeg als er geen was. Van het laatste interval van het kwartier."
+          },
+          {
+            "name": "co2sensor_co2_steekproef__ppm",
+            "type": "number",
+            "description": "Steekproef (laatste meting binnen het interval, geen gemiddelde) van co2sensor.co2. CO2-concentratie (eenheid niet toegelicht in de bron; ppm aangenomen). Van het laatste interval van het kwartier."
+          },
+          {
+            "name": "co2sensor_rv_steekproef__pct",
+            "type": "number",
+            "description": "Steekproef (laatste meting binnen het interval, geen gemiddelde) van co2sensor.humidity. Relatieve vochtigheid. Van het laatste interval van het kwartier."
+          },
+          {
+            "name": "co2sensor_temp_ruimte_steekproef__degC",
+            "type": "number",
+            "description": "Steekproef (laatste meting binnen het interval, geen gemiddelde) van co2sensor.temp. Ruimtetemperatuur van de CO2-sensor. Van het laatste interval van het kwartier."
+          },
+          {
+            "name": "co2sensor_temp_ruimte_steekproef_buiten_bereik__bool",
+            "type": "boolean",
+            "description": "De ruwe waarde van co2sensor_temp_ruimte_steekproef__degC lag buiten -40 tot 120 graden Celsius of was 0 of lager (kamertemperatuur); de waarde is dan leeg, de ruwe laag houdt hem."
+          },
+          {
+            "name": "co2sensor_voc_steekproef__onbekend",
+            "type": "number",
+            "description": "Steekproef (laatste meting binnen het interval, geen gemiddelde) van co2sensor.voc. VOC-waarde van de sensor; eenheid onbekend en niet in de bron gedocumenteerd. Waarschijnlijkst een dimensieloze luchtkwaliteitsindex (ondergrens 1,0, resolutie 0,1); niet als concentratie gebruiken (ontwerp §9.5). Van het laatste interval van het kwartier."
+          },
+          {
+            "name": "thermostat_tijdstip_steekproef",
+            "type": "datetime",
+            "description": "Tijdstip van de laatste meting van tabblad thermostat binnen het interval; leeg als er geen was. Van het laatste interval van het kwartier."
+          },
+          {
+            "name": "thermostat_temp_thermostaat_steekproef__degC",
+            "type": "number",
+            "description": "Steekproef (laatste meting binnen het interval, geen gemiddelde) van thermostat.temp. Temperatuur zoals de thermostaat die meet. Van het laatste interval van het kwartier."
+          },
+          {
+            "name": "thermostat_temp_thermostaat_steekproef_buiten_bereik__bool",
+            "type": "boolean",
+            "description": "De ruwe waarde van thermostat_temp_thermostaat_steekproef__degC lag buiten -40 tot 120 graden Celsius of was 0 of lager (kamertemperatuur); de waarde is dan leeg, de ruwe laag houdt hem."
+          },
+          {
+            "name": "relay1_tijdstip_steekproef",
+            "type": "datetime",
+            "description": "Tijdstip van de laatste meting van tabblad relay1 binnen het interval; leeg als er geen was. Van het laatste interval van het kwartier."
+          },
+          {
+            "name": "relay1_status_steekproef__bool",
+            "type": "boolean",
+            "description": "Steekproef (laatste meting binnen het interval, geen gemiddelde) van relay1.status. Relaisstatus, 0 of 1. Van het laatste interval van het kwartier."
+          },
+          {
+            "name": "relay2_tijdstip_steekproef",
+            "type": "datetime",
+            "description": "Tijdstip van de laatste meting van tabblad relay2 binnen het interval; leeg als er geen was. Van het laatste interval van het kwartier."
+          },
+          {
+            "name": "relay2_status_steekproef__bool",
+            "type": "boolean",
+            "description": "Steekproef (laatste meting binnen het interval, geen gemiddelde) van relay2.status. Relaisstatus, 0 of 1. Van het laatste interval van het kwartier."
+          },
+          {
+            "name": "relay24v_tijdstip_steekproef",
+            "type": "datetime",
+            "description": "Tijdstip van de laatste meting van tabblad relay24v binnen het interval; leeg als er geen was. Van het laatste interval van het kwartier."
+          },
+          {
+            "name": "relay24v_status_steekproef__bool",
+            "type": "boolean",
+            "description": "Steekproef (laatste meting binnen het interval, geen gemiddelde) van relay24v.status. Relaisstatus, 0 of 1. Van het laatste interval van het kwartier."
+          },
+          {
+            "name": "immersion_tijdstip_steekproef",
+            "type": "datetime",
+            "description": "Tijdstip van de laatste meting van tabblad immersion binnen het interval; leeg als er geen was. Van het laatste interval van het kwartier."
+          },
+          {
+            "name": "immersion_status_steekproef__bool",
+            "type": "boolean",
+            "description": "Steekproef (laatste meting binnen het interval, geen gemiddelde) van immersion.status. Status van het element in het vat, 0 of 1. Van het laatste interval van het kwartier."
+          }
+        ],
+        "primaryKey": [
+          "woningcode__str",
+          "tijdstip_start"
+        ]
+      }
+    },
+    {
+      "name": "controle_jaartotalen",
+      "title": "Zelfcontrole",
+      "description": "De jaartotalen uit de detaildata tegenover die in de jaartotalen.",
+      "format": "parquet",
+      "mediatype": "application/vnd.apache.parquet",
+      "path": "data/processed/controle_jaartotalen.parquet",
+      "schema": {
+        "fields": [
+          {
+            "name": "woningcode__str",
+            "type": "string",
+            "description": "Woningcode van een van de twee detailwoningen."
+          },
+          {
+            "name": "grootheid__str",
+            "type": "string",
+            "description": "Gecontroleerde grootheid: e_opwekker_totaal, q_ruimte, e_opwek of e_gebouw_overig."
+          },
+          {
+            "name": "definitie__str",
+            "type": "string",
+            "description": "raster_som: som van de intervallen in detail_5min (alleen de gedekte intervallen, dus zonder de energie in gaten); raster_som_met_gaten: raster_som plus de tellervoortgang in de niet-gedekte stukken, die niet aan intervallen wordt toegerekend; reeks_delta: eindstand min beginstand van de hele ruwe reeks."
+          },
+          {
+            "name": "uit_detail",
+            "type": "number",
+            "description": "Waarde afgeleid uit de detaildata."
+          },
+          {
+            "name": "uit_jaartotaal",
+            "type": "number",
+            "description": "Waarde in het werkboek met jaartotalen."
+          },
+          {
+            "name": "eenheid__str",
+            "type": "string",
+            "description": "Eenheid van beide waarden (kWh of GJ)."
+          },
+          {
+            "name": "afwijking__pct",
+            "type": "number",
+            "description": "Afwijking van uit_detail ten opzichte van uit_jaartotaal, in procenten."
+          },
+          {
+            "name": "binnen_tolerantie__bool",
+            "type": "boolean",
+            "description": "De absolute afwijking is hoogstens 0,5 %."
+          }
+        ],
+        "primaryKey": [
+          "woningcode__str",
+          "grootheid__str",
+          "definitie__str"
+        ]
+      }
+    }
+  ],
+  "x-bronvermelding": "RVO, Wattopia, Out of Harm's Way, \"Woningprestaties - Monitoringdata van bestaande woningen\", 2022, opvraagbaar via info@woningprestaties.nl"
+}
