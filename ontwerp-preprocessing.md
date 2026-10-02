@@ -413,3 +413,19 @@ documenteert het; de naam blijft `voc__onbekend`.
 
 Gevolg: de twee volumes heten nu `volume_uit_cum__m3`, en `UITVOER_CONTRACT_VERSIE` is verhoogd.
 
+### 9.6 De bron is werkelijk UTC
+
+Het ontwerp (§1.2, §2 punt 3) nam aan dat `Timestamp` Unix-tijd in UTC is. Dat is bij Unix-seconden
+de definitie, maar een logger kan ook de lokale kloktijd als Unix-tijd wegschrijven; dan verschuift
+alles in de zomer een uur. Gecontroleerd op de echte data:
+
+- **De zon.** Het zwaartepunt van de PV-opwek per dag ligt in UTC het hele jaar tussen 11:32 en
+  12:16 (mediaan per maand), zonder sprong van een uur tussen winter en zomer (januari 11:55, juni
+  12:04, december 11:41). Het verloop volgt de tijdsvereffening: het laatst in februari, het vroegst
+  in oktober en november.
+- **De zomertijdwissels.** Rond 31 maart en 27 oktober 2019 staan er bij beide woningen 12 metingen
+  in elk UTC-uur van de warmtepompteller, zonder gat en zonder dubbeling.
+
+De omzetting naar `Europe/Amsterdam` is daarmee een weergave van hetzelfde moment, zonder aanname
+over de bron; terug naar UTC is verliesvrij.
+

@@ -28,6 +28,11 @@ Elke woning heeft minstens één aaneengesloten jaar monitoring (meestal een kal
 het codeboek is niet na te gaan of warmtemetingen in- of exclusief stilstandsverliezen zijn
 opgegeven, en is de kwaliteit van de meters onbekend.
 
+**Tijd.** Elke tijdkolom in de uitvoer is tz-aware `Europe/Amsterdam`; intern wordt in UTC
+gerekend, en intervallen zijn begin-gelabeld. De bron is Unix-tijd, en dat die werkelijk UTC is (en
+niet de lokale kloktijd), is op de data gecontroleerd: de zon staat het hele jaar op hetzelfde
+UTC-tijdstip hoog, en rond de zomertijdwissels ontbreekt of verdubbelt geen uur (ontwerp §9.6).
+
 ## Stand
 
 De pijplijn bestaat en draait op het volledige pakket. Het ontwerp staat in
