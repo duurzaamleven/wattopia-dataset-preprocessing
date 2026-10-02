@@ -30,27 +30,50 @@ opgegeven, en is de kwaliteit van de meters onbekend.
 
 ## Stand
 
-Alleen het **juridisch kader** en de opzet staan er. Er is nog geen pijplijn; het ontwerp daarvan
-volgt in `ontwerp-preprocessing.md`, naar het model van de andere preprocessing-repo's voor
-KITE-datasets: ruw, gestandaardiseerd, afgeleid, met een kwaliteitsrapport, een datacatalogus en een
-`datapackage.json`.
+De pijplijn bestaat en draait op het volledige pakket. Het ontwerp staat in
+[`ontwerp-preprocessing.md`](ontwerp-preprocessing.md); wat de echte data anders liet zien dan het ontwerp
+aannam, staat in sectie 9 daarvan.
 
-Eerste vragen voor het ontwerp:
+**Wat eruit komt** (in `data/processed/`, gitignored, Parquet met zstd):
 
-1. **Tijdstempels** in de detaildata zijn Unix-seconden met een paar seconden spreiding per
-   meetpunt (bijvoorbeeld `1546297478`, `1546297480`). Uitlijnen op een vast raster van vijf minuten
-   is een keuze die vastgelegd moet worden.
-2. **Tellers en vermogens** staan naast elkaar (`power` en `total_energy_in`). Welke van de twee is
-   de bron van een gemiddeld vermogen per interval?
-3. **Formules in de werkbladen** (het tabblad *summary* bevat Excel-formules): die horen niet in de
-   uitvoer; alleen de meetwaarden.
-4. **De jaartotalen** hebben een kopregel over twee rijen (groepsnaam en kolomnaam).
+| tabel | rijen | inhoud |
+|---|---:|---|
+| `projecten` | 24 | typologie, schil en installaties per project |
+| `woningen_jaar` | 898 | jaartotalen per woning, met vlaggen |
+| `detail_ruw/<meetpunt>.parquet` | 104.000 tot 208.000 | per tabblad een getrouwe, getypeerde kopie voor beide detailwoningen |
+| `detail_5min` | 210.240 | twee woningen op een raster van vijf minuten over 2019 |
+| `detail_kwartier` | 70.080 | idem per kwartier |
+| `controle_jaartotalen` | 24 | de jaartotalen uit de detaildata tegenover die uit de jaartotalen |
+
+Daarnaast schrijft de pijplijn `docs/data-quality.md` (vulgraad, vlaggen, gaten, dekking en de zelfcontrole,
+alleen aggregaten), `docs/datacatalogus.md` en `datapackage.json` (Frictionless). Alles komt uit dezelfde
+kolomdefinities in `src/wattopia_preprocessing/kolommen.py`.
+
+**Draaien.** `python -m wattopia_preprocessing [--raw data/raw] [--uit data/processed]`. De eerste run leest de
+twee detailwerkboeken met `openpyxl` en dat duurt lang (orde van een uur voor beide); de bladen gaan naar
+`data/interim/`. Elke volgende run slaat een werkboek over zolang de sha256 van het bronbestand gelijk is
+aan die in `data/interim/_manifest.jsonl`, en is in een paar minuten klaar. `--opnieuw-lezen` dwingt het
+inlezen af. De run faalt als de zelfcontrole tegen de jaartotalen buiten de tolerantie van 0,5 % valt.
+
+**Wat de zelfcontrole zegt.** De eindstand min de beginstand van de tellers valt op alle gecontroleerde
+posten van beide woningen op 0,000 % van het jaartotaal. De som over de intervallen van vijf minuten blijft
+daaronder, omdat er niet over gaten van meer dan 15 minuten wordt geïnterpoleerd; wie over het raster
+sommeert, mist de energie in die gaten (zie `docs/data-quality.md` en ontwerp §9.1).
+
+**Wat nog openstaat.**
+
+- De eenheid van `volume_out`, de debieten van de ventilatie en `voc` is onbekend en staat zo in de namen
+  (`__onbekend`); de betekenis van de codes van de fabrikant (`op_mode`, `system_status`, `error_code`) ook.
+- De tekenconventie van `solar.power` en `smartMeter.power` is overgenomen, niet omgedraaid.
+- Geen koppeling met weerdata en geen afleiding van tapwaterwarmte, COP of SCOP; dat is werk voor de afnemer.
+- De licentie van de code is nog te besluiten (zie [`LICENSE.md`](LICENSE.md)).
 
 ## Beginnen
 
 ```
 pip install -e ".[dev]"
-pytest -q
+pytest -q                  # synthetische invoer; de toets op de echte data staat standaard uit
+pytest -m echte_data       # idem op data/raw/ en data/processed/ (traag als die nog niet bestaat)
 ```
 
 Zet het pakket uitgepakt in `data/raw/`. Waar je het haalt en wat je moet melden, staat in
@@ -60,6 +83,9 @@ Zet het pakket uitgepakt in `data/raw/`. Waar je het haalt en wat je moet melden
 
 | document | waarover |
 |---|---|
+| [`ontwerp-preprocessing.md`](ontwerp-preprocessing.md) | het ontwerp van de pijplijn, met in §9 de afwijkingen bij de implementatie |
+| [`docs/data-quality.md`](docs/data-quality.md) | vulgraad, vlaggen, gaten, dekking en zelfcontrole van de laatste run |
+| [`docs/datacatalogus.md`](docs/datacatalogus.md) | elke tabel en kolom, met type, bron en beschrijving |
 | [`GEBRUIKSVOORWAARDEN.md`](GEBRUIKSVOORWAARDEN.md) | de afspraken met de dataleveranciers, intrekking, bronvermelding, en hoe je de dataset verkrijgt |
 | [`LICENSE.md`](LICENSE.md) | de licentie van de **code** (nog te besluiten) |
 | [`CLAUDE.md`](CLAUDE.md) | werkafspraken voor deze repo |

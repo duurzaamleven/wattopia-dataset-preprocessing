@@ -303,3 +303,74 @@ overgeslagen): de vorm van de echte uitvoer (rijen, kolommen) en de zelfcontrole
 - **Geen correctie van de tekenconventie** van `solar.power` en `smartMeter.power`; wel twee
   afgeleide, positieve kolommen voor afname en teruglevering uit de tellers.
 - **Geen gebruik van `summary`**: het is een rekenblad, geen meting.
+
+## 9. Afwijkingen bij de implementatie
+
+De pijplijn is gedraaid op het echte pakket. Waar de data een aanname uit dit ontwerp tegensprak, is het
+ontwerp hierboven ongewijzigd gelaten en staat hier wat de data liet zien en wat er is gedaan.
+
+### 9.1 De som over het raster haalt het jaartotaal niet (§4.5)
+
+- **Ontwerp.** "Zo wordt elke kWh precies één keer toegerekend en tellen de intervallen op tot het
+  jaartotaal." De controle legt de som over het raster en de Δ over de ruwe reeks naast het jaartotaal, met
+  een tolerantie van 0,5 % voor beide; een afwijking is een fout in de pijplijn.
+- **Data.** De Δ over de ruwe reeks (`reeks_delta`) valt op alle acht posten op 0,000 % van het jaartotaal,
+  dus eenheden, definitie en randeffect kloppen. De som over de intervallen (`raster_som`) blijft daar
+  structureel onder: -0,26 % en -0,27 % (warmtepomp plus booster), -0,25 % en -0,23 % (warmte
+  ruimteverwarming), -1,31 % en -1,75 % (zonnepanelen), -1,03 % en -1,11 % (WTW-regeling), voor
+  respectievelijk W_arnpivgi en W_mkpiieku. Oorzaak: er wordt niet over gaten van meer dan 15 minuten
+  geïnterpoleerd (§4.4), en per tabblad zijn er 10 tot 66 stappen van meer dan 10 minuten, de langste gaten
+  2,5 tot 3,8 dagen. De teller loopt in zo'n gat gewoon door; die energie
+  staat in geen enkel interval. Het raster dekt 99,17 % (W_arnpivgi) en 98,94 % (W_mkpiieku) van de
+  intervallen voor de elektriciteitstellers van de warmtepomp. Het verlies bij de zonnepanelen en de
+  WTW-regeling (1,0 tot 1,7 %) is groter dan het aandeel niet-gedekte intervallen (0,8 tot 1,1 %); de
+  oorzaak daarvan is niet nagegaan.
+- **Gedaan.** Een derde definitie toegevoegd, `raster_som_met_gaten`: `raster_som` plus de tellervoortgang in
+  de niet-gedekte stukken. Die toetst de omrekening van teller naar vermogen in het raster (de factoren
+  3,6e6 en 1e9, de duur van 300 s) zonder energie in gaten te verzinnen of te verdelen. De run faalt op
+  `reeks_delta` en `raster_som_met_gaten` (beide binnen 0,5 %: alle 16 posten op 0,000 %). `raster_som` staat
+  in de tabel en in `docs/data-quality.md`, met de aantekening "niet afgedwongen", zodat de gatenfout
+  zichtbaar blijft. `controle_jaartotalen` heeft daardoor een kolom `definitie__str` en 24 in plaats van
+  8 rijen. Een afnemer die over het raster sommeert, moet weten dat de intervallen de energie in gaten
+  missen.
+
+### 9.2 Sentinels in de thermostaat liggen binnen het bereik van -40 tot 120 °C (§1.2 en §4.4)
+
+- **Ontwerp.** Temperaturen buiten -40 tot 120 °C zijn sentinels, en voor de kamertemperatuur ook exact
+  0 °C. §1.2 noemt voor `thermostat.temp` waarden "tot -100 en -20 °C".
+- **Data.** De thermostaat van W_arnpivgi heeft 1 meting van -100 °C, die van W_mkpiieku 2 metingen van
+  -20 °C (van respectievelijk 103.412 en 85.605). -100 valt buiten het bereik; -20 niet, en blijft zonder
+  extra regel als temperatuur staan. De warmtepomp van W_mkpiieku heeft 2 metingen met `room_temp` en
+  `room_target_temp` exact 0 °C. In `flowHeatSpaceHeating.flow_temp` van W_arnpivgi staat 1 meting van 192,3 °C.
+- **Gedaan.** Voor kamertemperaturen en het setpoint daarvan (`HeatPump` ruimte en setpoint, `thermostat`,
+  `ventilation` ruimte, `co2sensor` ruimte) is "exact 0" verruimd naar "0 of lager"; de rest van het
+  bereik is zoals in het ontwerp. Een kamertemperatuur van 0 °C of lager komt in een woning niet voor.
+  De ruwe laag houdt alle waarden. De vlag slaat aan op 2 metingen van W_arnpivgi (1 thermostaat, 1
+  aanvoertemperatuur van de warmtemeter) en 6 van W_mkpiieku (2 ruimtetemperatuur, 2 setpoint, 2 thermostaat).
+  Buitentemperaturen zijn niet beperkt: 0 °C is daar een
+  gewone waarde (486 en 905 metingen).
+
+### 9.3 Aanhalingstekens in het keuzemenu bleken niet uiteen te lopen (§4.1)
+
+- **Ontwerp.** Het werkboek gebruikt ’ en ‘ door elkaar; vergelijk met het keuzemenu na normalisatie.
+- **Data.** Alle 236 ingevulde waarden in de keuzekolommen van `Projectdata` staan letterlijk in het `keuzemenu`, met én
+  zonder normalisatie. De vlagkolommen `<kolom>_buiten_keuzemenu__bool` zijn daardoor altijd onwaar.
+- **Gedaan.** De normalisatie en de vlagkolommen zijn gebleven, voor een volgende versie van het pakket; de
+  oorspronkelijke tekst wordt altijd weggeschreven.
+
+### 9.4 Kleine vormafwijkingen
+
+- **Tussenstap en manifest (§5).** Het manifest van de tussenstap staat in `data/interim/_manifest.jsonl`
+  en niet in dat van `data/processed/`, met de sha256 van het bronbestand in de regel van elk werkboek.
+  Beide manifesten gebruiken dezelfde klasse. De tabellen in `data/processed/` worden in elke run opnieuw
+  gebouwd (dat kost ongeveer drie minuten); alleen de werkboeken, die tientallen minuten kosten, worden
+  op sha256 overgeslagen.
+- **Inlezen.** Het inlezen van een detailwerkboek met `openpyxl` duurde op deze machine ongeveer 40 minuten
+  per werkboek (twee werkboeken parallel, de machine ook voor andere dingen in gebruik; ruwweg honderd
+  seconden per tabblad van ongeveer 100.000 rijen), veel meer dan de "paar minuten" uit §5.
+- **Kolomnamen in `detail_5min`.** De dekkings- en dalingsvlaggen heten `<vermogenskolom zonder eenheid>_gedekt__bool`
+  en `..._teller_daalt__bool`, bijvoorbeeld `p_warmtepomp_gedekt__bool`. Steekproefkolommen heten
+  `<tabbladnaam in kleine letters>_<naam>_steekproef__<eenheid>`, met `<tabbladnaam>_tijdstip_steekproef` voor het tijdstip.
+- **Vlagregels van `woningen_jaar` (§4.2).** De drie vergelijkingen (`som_*`, `balans_*`) zijn leeg (`<NA>`)
+  als ze niet toetsbaar zijn, en niet onwaar. De waarden zelf blijven in `woningen_jaar` staan; de
+  `NaN`-bij-vlag-regel uit §2 geldt voor `detail_5min`.
