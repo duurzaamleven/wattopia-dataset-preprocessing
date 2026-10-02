@@ -4,6 +4,7 @@
 data/
 *.zip
 *.xlsx
+*.mhtml
 
 # Python
 __pycache__/

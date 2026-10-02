@@ -14,7 +14,8 @@ GEBRUIKSVOORWAARDEN.md): gebruik alleen voor onderzoek naar de energetische pres
 van woningen, niet doorsturen, niet manipuleren, niet verkopen, en een recht op
 intrekken van toestemming. Anders dan bij sommige andere KITE-datasets staat er (voor
 zover nagekeken) niet bij dat rekenmethoden of uitkomsten onder dezelfde licentie
-gedeeld moeten worden.
+gedeeld moeten worden. Wel moet het doel en gebruik aan Wattopia worden gemeld (KITE-pagina,
+onder Licentie).
 
 De werkbare invulling is dezelfde als bij de andere preprocessing-repo's voor
 KITE-datasets: de CODE onder een gangbare open-source-licentie, de DATA en alles wat

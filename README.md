@@ -5,9 +5,10 @@ getypeerde, herleidbare Parquet-tabellen. De preprocessing staat op zichzelf: wa
 bruikbaar voor iedereen die met deze dataset werkt, ongeacht welke analyse erop volgt. Bij Milieu
 Centraal is dat een simulatiemodel dat de tabellen afneemt, maar deze repo veronderstelt dat niet.
 
-> **Lees eerst [`GEBRUIKSVOORWAARDEN.md`](GEBRUIKSVOORWAARDEN.md).** De dataset mag alleen worden
-> gebruikt voor onderzoek naar de energetische prestaties van woningen, mag niet worden doorgestuurd
-> (aanvragen via KITE), en een dataleverancier kan zijn toestemming intrekken.
+> **Lees eerst [`GEBRUIKSVOORWAARDEN.md`](GEBRUIKSVOORWAARDEN.md).** De dataset is openbaar te halen,
+> maar het doel en het gebruik moeten aan Wattopia worden gemeld; hij mag alleen worden gebruikt
+> voor onderzoek naar de energetische prestaties van woningen, niet zelf worden doorgestuurd, en een
+> dataleverancier kan zijn toestemming intrekken.
 
 ## Wat dit is
 
@@ -52,8 +53,8 @@ pip install -e ".[dev]"
 pytest -q
 ```
 
-Zet het pakket uitgepakt in `data/raw/` (zie [`GEBRUIKSVOORWAARDEN.md`](GEBRUIKSVOORWAARDEN.md) voor
-waar je het aanvraagt).
+Zet het pakket uitgepakt in `data/raw/`. Waar je het haalt en wat je moet melden, staat in
+[`GEBRUIKSVOORWAARDEN.md`](GEBRUIKSVOORWAARDEN.md).
 
 ## Documenten
 

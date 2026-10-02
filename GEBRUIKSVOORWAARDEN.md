@@ -39,8 +39,30 @@ deze git-repo (`data/` is gitignored) en wordt niet door of via deze repo verspr
 > hebben, kan die aanvragen via KITE. De reden hiervoor is dat we graag met gebruikers willen kunnen
 > communiceren over eventuele updates en verbeteringen van de dataset."*
 
-De KITE-pagina zelf was bij het opzetten van deze repo niet zonder inlog te lezen; of daar
-aanvullende voorwaarden staan (zoals een meldplicht of een licentie), is **nog niet nagekeken**.
+### Van de KITE-pagina *Monitoringdata Energieprestaties Wattopia*
+
+Gelezen op 02-10-2026 (de pagina vraagt een inlog bij Kennisdelen RVO; een kopie staat lokaal in
+`data/raw/`). Onder **Licentie**:
+
+> *"Openbare data, te gebruiken onder voorwaarde van **vermelding van het doel/gebruik van de data
+> aan Wattopia** (zie contact). Check voor de volledigheid ook de gebruiksvoorwaarden in de
+> instructies (onderdeel van het datapakket in de download)."*
+
+Verder op die pagina: auteurs Marten Witkamp en Harmke Bekkema, versie juli 2022, contact
+marten@wattopia.nl, en een downloadlink `https://wattopia.nl/download/RVO_Woningprestaties_Datapakketje_2022.zip`.
+De pagina zegt ook dat er **geen werk is besteed aan het opschonen of analyseren** van de data, dat
+het pakket destijds naar 78 mensen is gestuurd, en dat de feedback vooral de vijfminutendata van de
+twee voorbeeldwoningen nuttig vond, met de kanttekening dat daar meer metadata bij zou moeten.
+
+### Hoe die drie zich tot elkaar verhouden
+
+- **Meldplicht.** Het doel en het gebruik moeten aan Wattopia worden gemeld. Dat staat alleen op de
+  KITE-pagina, niet in het pakket.
+- **"Openbare data" en "niet doorsturen".** De KITE-pagina noemt de set openbaar, met een openbare
+  downloadlink; de instructie in het pakket vraagt hem niet zelf door te sturen. Die twee zijn te
+  verenigen: de set is voor iedereen te halen, maar via de bron, zodat Wattopia en RVO weten wie hem
+  gebruikt en bij een intrekking iedereen kunnen bereiken. Deze repo verspreidt hem dus niet.
+- **Doelbinding en intrekking** uit het codeboek blijven gelden.
 
 ## Wat dit betekent voor deze repo
 
@@ -58,11 +80,13 @@ aanvullende voorwaarden staan (zoals een meldplicht of een licentie), is **nog n
 5. **Herleidbaarheid.** Het codeboek beschrijft hoe de data is geanonimiseerd (willekeurige codes,
    afgeronde bouwjaren en oppervlakken, verhulde projectgrootte, willekeurige volgorde). Deze repo
    koppelt geen gegevens die die anonimisering ongedaan kunnen maken, zoals kaart- of adresgegevens.
-6. **Publiceren van uitkomsten** (aggregaten, conclusies) mag binnen het doel, met de
-   bronvermelding hierboven. Of er een meldplicht is zoals bij andere KITE-datasets, staat nog open
-   (zie boven).
+6. **Melden vóór gebruik.** Wie de dataset gebruikt, meldt het doel en het gebruik aan Wattopia
+   (marten@wattopia.nl). Een analyse die op deze uitvoer draait, doet dat ook.
+7. **Publiceren van uitkomsten** (aggregaten, conclusies) mag binnen het doel, met de
+   bronvermelding hierboven.
 
 ## Hoe je de dataset verkrijgt
 
-Aanvragen via het KITE-portaal van RVO, pagina *Monitoringdata Energieprestaties Wattopia*. Het
-pakket heet `RVO_Woningprestaties_Datapakketje_2022.zip` en hoort na het uitpakken in `data/raw/`.
+Via het KITE-portaal van RVO, pagina *Monitoringdata Energieprestaties Wattopia*, die doorlinkt naar
+`https://wattopia.nl/download/RVO_Woningprestaties_Datapakketje_2022.zip`. Het pakket hoort na het
+uitpakken in `data/raw/`. Meld daarbij het doel aan Wattopia (zie boven).
