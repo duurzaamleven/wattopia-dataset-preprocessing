@@ -2,8 +2,8 @@
 
 Van de ruwe monitoringdata **Woningprestaties** (Wattopia, Out of Harm's Way en RVO, 2022) naar
 getypeerde, herleidbare Parquet-tabellen. De preprocessing staat op zichzelf: wat hier uit komt is
-bruikbaar voor iedereen die met deze dataset werkt, ongeacht welke analyse erop volgt. Bij Milieu
-Centraal is dat een simulatiemodel dat de tabellen afneemt, maar deze repo veronderstelt dat niet.
+bruikbaar voor iedereen die met deze dataset werkt, ongeacht welke analyse erop volgt. Bij Kenniscentrum Duurzaam
+Leven is dat een simulatiemodel dat de tabellen afneemt, maar deze repo veronderstelt dat niet.
 
 > **Lees eerst [`GEBRUIKSVOORWAARDEN.md`](GEBRUIKSVOORWAARDEN.md).** De dataset is openbaar te halen,
 > maar het doel en het gebruik moeten aan Wattopia worden gemeld; hij mag alleen worden gebruikt
