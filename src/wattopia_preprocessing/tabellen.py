@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: EUPL-1.2
 """De uitvoertabellen opbouwen (ontwerp §3 en §4).
 
 Twee lagen: de ruwe laag (``bouw_projecten``, ``bouw_woningen``, ``bouw_detail_ruw``) is een getrouwe,

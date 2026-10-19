@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: EUPL-1.2
 """Tijd: Unix-seconden naar lokale tijd, het 5-minutenraster en de interpolatie van tellers.
 
 Conventie (ontwerp §2): elke tijdkolom in de uitvoer is tz-aware ``Europe/Amsterdam``, intern UTC;

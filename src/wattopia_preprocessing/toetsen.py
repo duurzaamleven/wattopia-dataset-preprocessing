@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: EUPL-1.2
 """De vlaggen op de jaartotalen en de zelfcontrole van de detaildata tegen de jaartotalen.
 
 Een vlag verandert nooit een waarde; zij staat ernaast, met de regel erbij (``kolommen.py`` bevat de

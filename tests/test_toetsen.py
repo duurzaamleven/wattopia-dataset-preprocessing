@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: EUPL-1.2
 """Toetsen op de vlaggen en de zelfcontrole."""
 
 import numpy as np

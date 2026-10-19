@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: EUPL-1.2
 """Werkboeken lezen: de jaartotalen met drie kopregels en de detailtabbladen per meetpunt.
 
 De lezers geven de bron **getrouw** terug (bronkolomnamen, bronwaarden); vertalen, typeren naar

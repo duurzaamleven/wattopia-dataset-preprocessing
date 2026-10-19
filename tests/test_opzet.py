@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: EUPL-1.2
 """Toetsen op de opzet: de data blijft buiten git, en het pakket is te controleren op compleetheid."""
 
 import subprocess

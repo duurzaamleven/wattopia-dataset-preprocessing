@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: EUPL-1.2
 """``docs/data-quality.md``: het kwaliteitsrapport van een run.
 
 Het rapport bevat alleen **aggregaten**: vulgraad, hoe vaak een vlag aanslaat, gaten, dekking en de

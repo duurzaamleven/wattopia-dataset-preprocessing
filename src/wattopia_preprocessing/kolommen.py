@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: EUPL-1.2
 """De vertaaltabellen van ontwerp §4 als data: bronkolom naar uitvoerkolom, type en beschrijving.
 
 Alles wat een kolom beschrijft staat hier, op één plek. ``tabellen.py`` bouwt eruit de tabellen en de

@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: EUPL-1.2
 """Hervatbaarheid: ``_manifest.jsonl``, atomisch schrijven en de contractversie.
 
 Het inlezen van de twee detailwerkboeken met ``openpyxl`` duurt tientallen minuten; de rest van de

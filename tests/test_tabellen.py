@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: EUPL-1.2
 """Toetsen op het bouwen van de tabellen: typeren, vlaggen, ruwe tegenover afgeleide laag."""
 
 import numpy as np
