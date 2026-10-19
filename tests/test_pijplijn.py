@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: EUPL-1.2
 """Toetsen op de pijplijn als geheel, op het synthetische pakket."""
 
 import json

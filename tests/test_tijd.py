@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: EUPL-1.2
 """Toetsen op de tijd: lokale tijd, het raster, tellerinterpolatie en steekproeven."""
 
 import numpy as np

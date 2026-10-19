@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: EUPL-1.2
 """``python -m wattopia_preprocessing``: zie ``wattopia_preprocessing.pijplijn`` voor de opdrachtregel."""
 
 import sys

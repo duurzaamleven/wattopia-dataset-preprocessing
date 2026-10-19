@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: EUPL-1.2
 """Gedeelde hulpmiddelen: een klein synthetisch pakket (nooit de echte data) in de vorm van de bron.
 
 Het pakket heeft twee woningen met tijdreeksen van twee dagen, met metingen op veelvouden van 300 s,

@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: EUPL-1.2
 """Toetsen op het manifest: sha256, atomisch schrijven, contractversie, hervatten."""
 
 import pandas as pd

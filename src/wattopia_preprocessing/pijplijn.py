@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: EUPL-1.2
 """De pijplijn: ruw pakket naar getypeerde Parquet-tabellen (zie ``ontwerp-preprocessing.md``).
 
 Volgorde van een run:

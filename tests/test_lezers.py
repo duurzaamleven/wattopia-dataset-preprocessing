@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: EUPL-1.2
 """Toetsen op de lezers: drie kopregels, lege cellen, detailtabbladen."""
 
 import numpy as np

@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: EUPL-1.2
 """De echte data: draait alleen als ``data/raw/`` het pakket heeft en ``pytest -m echte_data`` wordt
 gegeven (standaard overgeslagen, zie ``addopts`` in pyproject.toml). Gebruikt ``data/processed/`` als
 dat er al staat, anders draait de pijplijn eerst (dat leest de werkboeken, wat minuten duurt)."""

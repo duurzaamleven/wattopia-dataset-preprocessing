@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: EUPL-1.2
 """Toetsen op het kwaliteitsrapport: opmaak en het oordeel over vlaggen."""
 
 import pandas as pd

@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: EUPL-1.2
 """``datapackage.json`` (Frictionless Data Package) en ``docs/datacatalogus.md``, beide uit dezelfde
 kolomdefinities in ``kolommen.py``.
 

@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: EUPL-1.2
 """Preprocessing van de Wattopia-dataset Woningprestaties (Wattopia, Out of Harm's Way en RVO, 2022).
 
 Nog geen pijplijn; zie README.md voor de stand en de eerste ontwerpvragen.

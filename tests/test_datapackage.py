@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: EUPL-1.2
 """Toetsen op datapackage.json en de datacatalogus: dezelfde bron als de uitvoer."""
 
 import re

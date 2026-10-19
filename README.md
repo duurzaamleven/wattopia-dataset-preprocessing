@@ -71,7 +71,6 @@ sommeert, mist de energie in die gaten (zie `docs/data-quality.md` en ontwerp §
   (`__onbekend`); de betekenis van de codes van de fabrikant (`op_mode`, `system_status`, `error_code`) ook.
 - De tekenconventie van `solar.power` en `smartMeter.power` is overgenomen, niet omgedraaid.
 - Geen koppeling met weerdata en geen afleiding van tapwaterwarmte, COP of SCOP; dat is werk voor de afnemer.
-- De licentie van de code is nog te besluiten (zie [`LICENSE.md`](LICENSE.md)).
 
 ## Beginnen
 
@@ -92,5 +91,19 @@ Zet het pakket uitgepakt in `data/raw/`. Waar je het haalt en wat je moet melden
 | [`docs/data-quality.md`](docs/data-quality.md) | vulgraad, vlaggen, gaten, dekking en zelfcontrole van de laatste run |
 | [`docs/datacatalogus.md`](docs/datacatalogus.md) | elke tabel en kolom, met type, bron en beschrijving |
 | [`GEBRUIKSVOORWAARDEN.md`](GEBRUIKSVOORWAARDEN.md) | de afspraken met de dataleveranciers, intrekking, bronvermelding, en hoe je de dataset verkrijgt |
-| [`LICENSE.md`](LICENSE.md) | de licentie van de **code** (nog te besluiten) |
+| [`LICENSE`](LICENSE) | de licentie van de **code**: `EUPL-1.2` |
 | [`CLAUDE.md`](CLAUDE.md) | werkafspraken voor deze repo |
+
+## Licentie
+
+De **code** in deze repository valt onder de European Union Public Licence 1.2 (`EUPL-1.2`), zie
+[`LICENSE`](LICENSE). Kenniscentrum Duurzaam Leven heeft daartoe op 19-10-2026 besloten.
+
+Copyright © 2026 Kenniscentrum Duurzaam Leven, Stichting Milieu Centraal
+
+De licentie gaat over de code, niet over de data. De ruwe dataset staat niet in deze repository en
+wordt er ook niet via verspreid. Voor de data, en voor alles wat per woning uit de data volgt, gelden
+de afspraken met de dataleveranciers: alleen voor onderzoek naar de energetische prestaties van
+woningen, niet doorsturen, niet manipuleren, niet verkopen, en een recht op intrekken van
+toestemming. Het doel en het gebruik meld je aan Wattopia. Zie
+[`GEBRUIKSVOORWAARDEN.md`](GEBRUIKSVOORWAARDEN.md).
